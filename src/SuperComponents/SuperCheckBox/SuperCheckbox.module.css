@@ -1,0 +1,16 @@
+.label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-color: #335533;
+}
+
+.spanClassName {
+
+}

@@ -1,0 +1,15 @@
+.default {
+    background-color: #003300;
+    color: #99ff99;
+    outLine: none;
+}
+
+.red {
+    background: #dd3355;
+}
+
+.button {
+    margin: 10px;
+
+    cursor: pointer;
+}

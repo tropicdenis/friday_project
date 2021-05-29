@@ -4,7 +4,7 @@ import './Registartion.css';
 const Registration = () => {
   return (
       <div className="Registration">
-          Registration
+          <h3>Registration</h3>
       </div>
   );
 }

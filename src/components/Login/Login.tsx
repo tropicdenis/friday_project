@@ -3,9 +3,9 @@ import './Login.css';
 
 const Login = () => {
   return (
-      <div className="Login">
-          <h3>Login Denis</h3>
-      </div>
+    <div className="Login">
+      Login
+    </div>
   );
 }
 

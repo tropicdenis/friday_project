@@ -3,9 +3,9 @@ import './Profile.css';
 
 const Profile = () => {
   return (
-      <div className="Profile">
-          Profile
-      </div>
+    <div className="Profile">
+      Profile from Andrey second Test
+    </div>
   );
 }
 

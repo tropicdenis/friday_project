@@ -3,7 +3,7 @@ import style from './Login.module.css';
 
 const Login = () => {
   return (
-    <div className={style.login}>
+    <div className={style.main}>
       <div className={style.mainBlock}>
         <div className={style.title}>
           It-incubator
@@ -21,10 +21,11 @@ const Login = () => {
           <p className={style.forgotPassword}>
             <span>Forgot Password</span>
           </p>
+          <div>
+            <button className={style.loginButton}>Login</button>
+          </div>
         </form>
-        <div >
-          <button className={style.loginButton}>Login</button>
-        </div>
+
         <div className={style.askAboutAccount}>
           <span>Don’t have an account?</span>
 

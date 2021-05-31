@@ -20,7 +20,6 @@ export const PATH = {
     test: '/test'
 }
 
-
 const App = () => {
     return (
         <div className="App">

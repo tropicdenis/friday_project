@@ -5,7 +5,7 @@ export const initialState = {
     isLoggedIn: false,
     isInitialized: false
 }
-// actionCreater
+
 export const loginReducer = (state: InitialStateLoginType = initialState, action: ActionType): InitialStateLoginType => {
     switch (action.type) {
         case "LOGIN/SET-LOGIN-DATA":

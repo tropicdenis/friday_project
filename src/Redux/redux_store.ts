@@ -1,12 +1,14 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import { applyMiddleware, combineReducers, createStore } from "redux";
 import profileReducer from "./profileReducer";
 import appReducer from "./app_reducer";
 import thunkMiddleware from "redux-thunk";
+import { registrationReducer } from "./registrationReducer";
 
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
-    app: appReducer
+    app: appReducer,
+    registration: registrationReducer
 });
 
 

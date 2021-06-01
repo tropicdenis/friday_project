@@ -25,11 +25,9 @@ const Registration = () => {
     setPassword(event.currentTarget.value)
   }
   const onChangeConfirmPassword = (event: ChangeEvent<HTMLInputElement>) => {
-    debugger
     setConfirmPassword(event.currentTarget.value)
   }
   const onKeyPressHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    debugger
     if (event.charCode === 13) {
       setRegistrationData()
     }

@@ -1,10 +1,10 @@
-import React, { ButtonHTMLAttributes, ChangeEvent, FormEvent, MouseEventHandler, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { registrationTC, setResponseError } from '../../Redux/registrationReducer';
-import { AppStateType } from '../../Redux/redux_store';
+import React, {ChangeEvent, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {registrationTC, setResponseError} from '../../Redux/registrationReducer';
+import {AppStateType} from '../../Redux/redux_store';
 import style from './Registartion.module.css';
-import { Redirect } from 'react-router';
-import { PATH } from '../../App';
+import {Redirect} from 'react-router';
+import {PATH} from '../../App';
 
 const Registration = () => {
 
@@ -29,7 +29,6 @@ const Registration = () => {
     setConfirmPassword(event.currentTarget.value)
   }
   const onKeyPressHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    debugger
     if (event.charCode === 13) {
       setRegistrationData()
     }

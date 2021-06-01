@@ -23,19 +23,17 @@ export type LoginType = {
 	rememberMe?: boolean
 }
 export type ResponseType = {
-	id: string
+	_id: string
 	email: string
 	name: string
-	avatar?: string
+	avatar: string | null
 	publicCardPacksCount: number
-
-	created: Date;
-	updated: Date;
+	created: string;
+	updated: string;
 	isAdmin: boolean;
 	verified: boolean;
 	rememberMe: boolean;
-
-	error?: string;
+	error: string;
 }
 export type RegistrationDataType = {
 	email: string

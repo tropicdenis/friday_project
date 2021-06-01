@@ -1,7 +1,36 @@
-import React from 'react';
+import React, {ChangeEvent, ChangeEventHandler, useState} from 'react';
 import style from './Login.module.css';
+import {useDispatch, useSelector} from "react-redux";
+import { Redirect } from 'react-router-dom';
+import {AppStateType} from "../../Redux/redux_store";
+import {loginTC} from "../../Redux/loginReducer";
 
 const Login = () => {
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [rememberMe, setRememberMe] = useState(false)
+
+  const dispatch = useDispatch()
+  const isLoggedIn = useSelector<AppStateType, boolean>( state => state.login.isLoggedIn)
+
+  if (isLoggedIn) {
+    return <Redirect to={"/profile"}/>
+  }
+
+  const setUserData = () => {
+    dispatch(loginTC({email, password, rememberMe}))
+  }
+  const onSetUpEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.currentTarget.value)
+  }
+  const onSetUpPassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.currentTarget.value)
+  }
+  const onSetUpRememberMe = (event: ChangeEvent<HTMLInputElement>) => {
+    setRememberMe(event.currentTarget.checked)
+  }
+
   return (
     <div className={style.main}>
       <div className={style.mainBlock}>
@@ -11,30 +40,28 @@ const Login = () => {
         <div className={style.subTitle}>
           Sign In
         </div>
-        <form className={style.form}>
+        <div className={style.form}>
           <div className={style.formInput}>
-            <input type="email" placeholder='Enter your email' />
+            <input type="email" placeholder='Enter your email' onChange={onSetUpEmail}/>
           </div>
           <div className={style.formInput}>
-            <input type="password" placeholder='Enter your password' />
+            <input type="password" placeholder='Enter your password' onChange={onSetUpPassword} />
           </div>
-          <p className={style.forgotPassword}>
-            <span>Forgot Password</span>
-          </p>
+          <div className={style.forgotPassword}>
+            <input type={"checkbox"} checked={rememberMe} onChange={onSetUpRememberMe} />RememberMe
+          </div>
           <div>
-            <button className={style.loginButton}>Login</button>
+            <button className={style.loginButton} onClick={setUserData}>Login</button>
           </div>
-        </form>
+        </div>
 
         <div className={style.askAboutAccount}>
           <span>Don’t have an account?</span>
-
         </div>
         <div className={style.singUp}>
           <span>Sign Up</span>
         </div>
       </div>
-
     </div>
   );
 }

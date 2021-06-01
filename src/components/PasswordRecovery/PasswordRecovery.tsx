@@ -23,13 +23,13 @@ const PasswordRecovery = () => {
         };
         dispatch(passwordRecoveryThunk(recoveryData))
     }
+
     if (isRecovered) {
-        debugger
-        return (<Redirect to={'/newPassword'}/>)
+       return (<Redirect to={'/newPassword'}/>)
     }
+
     const onRedirectToLogin = () => {
-        debugger
-        return (<Redirect to={'/login'}/>)
+                return (<Redirect to={'/login'}/>)
     }
 
     return (

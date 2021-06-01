@@ -24,7 +24,6 @@ export const registrationReducer = (state: InitialStateType = initialState, acti
 		default:
 			return { ...state };
 	}
-
 }
 
 // actions

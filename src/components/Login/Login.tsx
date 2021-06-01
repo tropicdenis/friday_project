@@ -1,7 +1,7 @@
-import React, {ChangeEvent, ChangeEventHandler, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import style from './Login.module.css';
 import {useDispatch, useSelector} from "react-redux";
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import {AppStateType} from "../../Redux/redux_store";
 import {loginTC} from "../../Redux/loginReducer";
 

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ButtonHTMLAttributes, ChangeEvent, FormEvent, MouseEventHandler, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registrationTC, setResponseError } from '../../Redux/registrationReducer';
 import { AppStateType } from '../../Redux/redux_store';
@@ -25,10 +25,17 @@ const Registration = () => {
     setPassword(event.currentTarget.value)
   }
   const onChangeConfirmPassword = (event: ChangeEvent<HTMLInputElement>) => {
+    debugger
     setConfirmPassword(event.currentTarget.value)
   }
+  const onKeyPressHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    debugger
+    if (event.charCode === 13) {
+      setRegistrationData()
+    }
+  }
 
-  const setRegistrationData = (event: FormEvent<HTMLButtonElement>) => {
+  const setRegistrationData = () => {
     if (password === confirmPassword) {
       dispatch(registrationTC({ email, password }))
       setEmail('')
@@ -42,7 +49,7 @@ const Registration = () => {
       setError('Пароль не совпадает')
     }
   }
-  const onChangeCancel = (event: FormEvent<HTMLButtonElement>) => {
+  const onChangeCancel = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setEmail('')
     setPassword('')
     setConfirmPassword('')
@@ -62,7 +69,7 @@ const Registration = () => {
         <div className={style.subTitle}>
           Sign Up
         </div>
-        <form className={style.form} action=''>
+        <div className={style.form}>
           <div className={style.formInput}>
             <input type="email" placeholder='Enter your email' value={email} onChange={onChangeEmail} />
           </div>
@@ -70,18 +77,18 @@ const Registration = () => {
             <input type="password" placeholder='Enter your password' value={password} onChange={onChangePassword} />
           </div>
           <div className={`${style.formInput} ${style.formInputLastChild}`}>
-            <input type="password" placeholder='Confirm your password' value={confirmPassword} onChange={onChangeConfirmPassword} />
+            <input type="password" placeholder='Confirm your password' value={confirmPassword} onKeyPress={onKeyPressHandler} onChange={onChangeConfirmPassword} />
             <span className={style.formError}>{error ? error : responseError ? responseError : ''}</span>
           </div>
           <div className={style.flexButtons}>
             <div >
-              <button type='reset' className={style.cancelButton} onClick={onChangeCancel}>Cancel</button>
+              <button className={style.cancelButton} onClick={onChangeCancel}>Cancel</button>
             </div>
             <div>
-              <button type='submit' className={style.logisterButton} onClick={setRegistrationData}>Register</button>
+              <button className={style.logisterButton} onClick={setRegistrationData}>Register</button>
             </div>
           </div>
-        </form>
+        </div>
 
 
       </div>

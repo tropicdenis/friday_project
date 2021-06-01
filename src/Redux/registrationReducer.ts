@@ -38,7 +38,6 @@ export const registrationTC = (data: RegistrationDataType) => (dispatch: Dispatc
 	authAPI.registration(data).then(res => {
 		dispatch(setRegistrationData(true))
 	}).catch((error: ErrorDataType) => {
-		debugger
 		dispatch(setResponseError(error.response.data.error))
 	})
 }

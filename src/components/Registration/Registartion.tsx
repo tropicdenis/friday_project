@@ -52,18 +52,24 @@ const Registration = () => {
   }
 
   const setRegistrationData = () => {
-    if (password === confirmPassword) {
-      dispatch(registrationTC({ email, password }))
-      setEmail('')
-      setPassword('')
-      setConfirmPassword('')
-      setError('')
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+      setError('Неверный логин')
+    } else if (!/^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$/i.test(password)) {
+      setError('Неверный пароль')
     } else {
-
-      setPassword('')
-      setConfirmPassword('')
-      setError('Пароль не совпадает')
+      if (password === confirmPassword) {
+        dispatch(registrationTC({ email, password }))
+        setEmail('')
+        setPassword('')
+        setConfirmPassword('')
+        setError('')
+      } else {
+        setPassword('')
+        setConfirmPassword('')
+        setError('Пароль не совпадает')
+      }
     }
+
   }
   const onChangeCancel = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setEmail('')

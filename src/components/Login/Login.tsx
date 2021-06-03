@@ -1,25 +1,27 @@
-import React, {ChangeEvent, ChangeEventHandler, useState} from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import style from './Login.module.css';
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from 'react-router-dom';
-import {AppStateType} from "../../Redux/redux_store";
-import {loginTC} from "../../Redux/loginReducer";
+import { AppStateType } from "../../Redux/redux_store";
+import { loginTC } from "../../Redux/loginReducer";
 
 const Login = () => {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [rememberMe, setRememberMe] = useState(false)
+  const [typePassword, setTypePassword] = useState<string>('password')
+
 
   const dispatch = useDispatch()
-  const isLoggedIn = useSelector<AppStateType, boolean>( state => state.login.isLoggedIn)
+  const isLoggedIn = useSelector<AppStateType, boolean>(state => state.login.isLoggedIn)
 
   if (isLoggedIn) {
-    return <Redirect to={"/profile"}/>
+    return <Redirect to={"/profile"} />
   }
 
   const setUserData = () => {
-    dispatch(loginTC({email, password, rememberMe}))
+    dispatch(loginTC({ email, password, rememberMe }))
   }
   const onSetUpEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.currentTarget.value)
@@ -30,7 +32,13 @@ const Login = () => {
   const onSetUpRememberMe = (event: ChangeEvent<HTMLInputElement>) => {
     setRememberMe(event.currentTarget.checked)
   }
-
+  const onClickTypePassword = () => {
+    if (typePassword === 'password') {
+      setTypePassword('text')
+    } else if (typePassword === 'text') {
+      setTypePassword('password')
+    }
+  }
   return (
     <div className={style.main}>
       <div className={style.mainBlock}>
@@ -42,10 +50,11 @@ const Login = () => {
         </div>
         <div className={style.form}>
           <div className={style.formInput}>
-            <input type="email" placeholder='Enter your email' onChange={onSetUpEmail}/>
+            <input type="email" placeholder='Enter your email' onChange={onSetUpEmail} />
           </div>
           <div className={style.formInput}>
-            <input type="password" placeholder='Enter your password' onChange={onSetUpPassword} />
+            <input type={typePassword} placeholder='Enter your password' onChange={onSetUpPassword} />
+            <span className={style.photoEye} onClick={onClickTypePassword}></span>
           </div>
           <div className={style.forgotPassword}>
             <input type={"checkbox"} checked={rememberMe} onChange={onSetUpRememberMe} />RememberMe

@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, ChangeEvent, FormEvent, MouseEventHandler, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registrationTC, setResponseError } from '../../Redux/registrationReducer';
 import { AppStateType } from '../../Redux/redux_store';
@@ -13,10 +13,13 @@ const Registration = () => {
   console.log(responseError);
 
   const dispatch = useDispatch();
-  let [email, setEmail] = useState<string>('')
-  let [password, setPassword] = useState<string>('')
-  let [confirmPassword, setConfirmPassword] = useState<string>('')
-  let [error, setError] = useState<string>('');
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [confirmPassword, setConfirmPassword] = useState<string>('')
+  const [error, setError] = useState<string>('');
+  const [typePassword, setTypePassword] = useState<string>('password')
+  const [typeConfirmPassword, setTypeConfirmPassword] = useState<string>('password')
+
 
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.currentTarget.value)
@@ -32,20 +35,41 @@ const Registration = () => {
       setRegistrationData()
     }
   }
+  const onClickTypePassword = () => {
+    if (typePassword === 'password') {
+      setTypePassword('text')
+    } else if (typePassword === 'text') {
+      setTypePassword('password')
+    }
+  }
+
+  const onClickTypeConfirmPassword = () => {
+    if (typeConfirmPassword === 'password') {
+      setTypeConfirmPassword('text')
+    } else if (typeConfirmPassword === 'text') {
+      setTypeConfirmPassword('password')
+    }
+  }
 
   const setRegistrationData = () => {
-    if (password === confirmPassword) {
-      dispatch(registrationTC({ email, password }))
-      setEmail('')
-      setPassword('')
-      setConfirmPassword('')
-      setError('')
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+      setError('Неверный логин')
+    } else if (!/^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$/i.test(password)) {
+      setError('Неверный пароль')
     } else {
-
-      setPassword('')
-      setConfirmPassword('')
-      setError('Пароль не совпадает')
+      if (password === confirmPassword) {
+        dispatch(registrationTC({ email, password }))
+        setEmail('')
+        setPassword('')
+        setConfirmPassword('')
+        setError('')
+      } else {
+        setPassword('')
+        setConfirmPassword('')
+        setError('Пароль не совпадает')
+      }
     }
+
   }
   const onChangeCancel = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setEmail('')
@@ -71,11 +95,13 @@ const Registration = () => {
           <div className={style.formInput}>
             <input type="email" placeholder='Enter your email' value={email} onChange={onChangeEmail} />
           </div>
-          <div className={style.formInput}>
-            <input type="password" placeholder='Enter your password' value={password} onChange={onChangePassword} />
+          <div className={`${style.formInput}`}>
+            <input type={typePassword} placeholder='Enter your password' value={password} onChange={onChangePassword} />
+            <span className={style.photoEye} onClick={onClickTypePassword}></span>
           </div>
           <div className={`${style.formInput} ${style.formInputLastChild}`}>
-            <input type="password" placeholder='Confirm your password' value={confirmPassword} onKeyPress={onKeyPressHandler} onChange={onChangeConfirmPassword} />
+            <input type={typeConfirmPassword} placeholder='Confirm your password' value={confirmPassword} onKeyPress={onKeyPressHandler} onChange={onChangeConfirmPassword} />
+            <span className={style.photoEye} onClick={onClickTypeConfirmPassword}></span>
             <span className={style.formError}>{error ? error : responseError ? responseError : ''}</span>
           </div>
           <div className={style.flexButtons}>

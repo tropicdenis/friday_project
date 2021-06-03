@@ -39,7 +39,18 @@
 .formInput {
   text-align: center;
   margin-bottom: 25px;
+  position: relative;
 }
+.photoEye {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: url(../../img/testeye.png) 0 0 / contain no-repeat;
+  right: 37px;
+  top: 0px;
+  cursor: pointer;
+}
+
 .formInput input {
   width: 80%;
   padding: 5px;

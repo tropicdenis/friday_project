@@ -126,3 +126,8 @@
   cursor: pointer;
   background-color: #e5e5e5;
 }
+.formError {
+  display: block;
+  text-align: center;
+  color: red;
+}

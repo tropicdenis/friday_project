@@ -69,7 +69,6 @@ const Registration = () => {
         setError('Пароль не совпадает')
       }
     }
-
   }
   const onChangeCancel = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setEmail('')

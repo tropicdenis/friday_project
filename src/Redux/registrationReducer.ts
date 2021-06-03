@@ -41,11 +41,11 @@ export const registrationTC = (data: RegistrationDataType) => (dispatch: Dispatc
 	})
 }
 
-type ActionsType =
+export type ActionsType =
 	ReturnType<typeof setRegistrationData> |
 	ReturnType<typeof setResponseError>
 
-type ErrorDataType = {
+export type ErrorDataType = {
 	response: {
 		data: ErrorRegistration
 	}

@@ -1,6 +1,5 @@
 import {Dispatch} from "redux";
 import {authAPI, LoginType, ResponseType} from "../api/cardsApi";
-import {setResponseError} from "./registrationReducer";
 
 export const initialState = {
     isLoggedIn: false,
@@ -49,7 +48,7 @@ export const loginTC = (data: LoginType) => (dispatch: Dispatch) => {
             dispatch(setDataResponseAC(res.data))
         })
         .catch((error: ErrorDataType) => {
-            dispatch(setResponseError(error.response.data.error))
+            dispatch(setResponseErrorAC(error.response.data.error))
         })
 }
 

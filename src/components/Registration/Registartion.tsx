@@ -10,7 +10,6 @@ const Registration = () => {
 
   const isRegistration = useSelector<AppStateType, boolean>(state => state.registration.isRegistration)
   const responseError = useSelector<AppStateType, string>(state => state.registration.responseError)
-  console.log(responseError);
 
   const dispatch = useDispatch();
   const [email, setEmail] = useState<string>('')
@@ -19,7 +18,6 @@ const Registration = () => {
   const [error, setError] = useState<string>('');
   const [typePassword, setTypePassword] = useState<string>('password')
   const [typeConfirmPassword, setTypeConfirmPassword] = useState<string>('password')
-
 
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.currentTarget.value)
@@ -96,11 +94,11 @@ const Registration = () => {
           </div>
           <div className={`${style.formInput}`}>
             <input type={typePassword} placeholder='Enter your password' value={password} onChange={onChangePassword} />
-            <span className={style.photoEye} onClick={onClickTypePassword}></span>
+            <span className={style.photoEye} onClick={onClickTypePassword}/>
           </div>
           <div className={`${style.formInput} ${style.formInputLastChild}`}>
             <input type={typeConfirmPassword} placeholder='Confirm your password' value={confirmPassword} onKeyPress={onKeyPressHandler} onChange={onChangeConfirmPassword} />
-            <span className={style.photoEye} onClick={onClickTypeConfirmPassword}></span>
+            <span className={style.photoEye} onClick={onClickTypeConfirmPassword}/>
             <span className={style.formError}>{error ? error : responseError ? responseError : ''}</span>
           </div>
           <div className={style.flexButtons}>
@@ -112,13 +110,9 @@ const Registration = () => {
             </div>
           </div>
         </div>
-
-
       </div>
-
     </div>
   );
 }
-
 export default Registration;
 

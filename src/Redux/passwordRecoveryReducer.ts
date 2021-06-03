@@ -1,6 +1,5 @@
-import { Dispatch } from "redux";
-import {authAPI, PasswordRecoveryDataType, RegistrationDataType} from "../api/cardsApi";
-
+import {Dispatch} from "redux";
+import {authAPI, PasswordRecoveryDataType} from "../api/cardsApi";
 
 export enum RECOVERY_ACTIONS_TYPE {
 	SET_RECOVERY_FlAG = "SET_RECOVERY_FlAG",
@@ -22,9 +21,8 @@ export const passwordRecoveryReducer = (state: InitialStateType = initialState, 
 		case RECOVERY_ACTIONS_TYPE.SET_RESPONSE_ERROR:
 			return { ...state, responseError: action.responseError }
 		default:
-			return { ...state };
+			return state;
 	}
-
 }
 
 // actions

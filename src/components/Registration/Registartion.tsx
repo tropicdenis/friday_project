@@ -10,7 +10,6 @@ const Registration = () => {
 
   const isRegistration = useSelector<AppStateType, boolean>(state => state.registration.isRegistration)
   const responseError = useSelector<AppStateType, string>(state => state.registration.responseError)
-  console.log(responseError);
 
   const dispatch = useDispatch();
   const [email, setEmail] = useState<string>('')
@@ -50,6 +49,8 @@ const Registration = () => {
       setTypeConfirmPassword('password')
     }
   }
+
+
 
   const setRegistrationData = () => {
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {

@@ -45,8 +45,8 @@
   position: absolute;
   width: 32px;
   height: 32px;
-  background: url("https://s1.1zoom.ru/big0/301/Eyes_Painting_Art_Eyelash_lash_Glance_White_522554_1024x1024.jpg") 0 0 /
-    contain no-repeat;
+  background: url(https://s1.1zoom.ru/big0/301/Eyes_Painting_Art_Eyelash_lash_Glance_White_522554_1024x1024.jpg
+  ) 0 0 / contain no-repeat;
   right: 37px;
   top: -8px;
   cursor: pointer;

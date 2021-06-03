@@ -1,18 +1,21 @@
 import React, {ChangeEvent, useState} from 'react';
 import style from './PasswordRecovery.module.css';
-import {passwordRecoveryThunk} from "../../Redux/passwordRecoveryReducer";
+import {passwordRecoveryThunk, setResponseError} from "../../Redux/passwordRecoveryReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/redux_store";
 import {Redirect} from "react-router-dom";
 
 const PasswordRecovery = () => {
-    const [isRedirect, setRedirect] = useState(false)
     const isRecovered = useSelector<AppStateType, boolean>(state => state.passwordRecovery.isRecovered)
     const responseError = useSelector<AppStateType, string>(state => state.passwordRecovery.responseError)
-    const [email, setEmail] = useState('')
     const dispatch = useDispatch()
+
+    const [email, setEmail] = useState('')
+    const [isRedirect, setRedirect] = useState(false)
+
     const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
+        dispatch(setResponseError(""))
     }
     const onSendEmail = () => {
         const recoveryData = {
@@ -48,7 +51,7 @@ const PasswordRecovery = () => {
                 <div className={style.form}>
                     <div className={style.formInput}>
                         <input type="email" placeholder='Enter your email' onChange={onChangeEmail} value={email}/>
-                        <span className={style.formError}>{responseError && responseError}</span>
+                        <span className={style.formError}>{responseError}</span>
                     </div>
                     <p className={style.textAfterInput}>
                         Enter your email address and we will send you further instructions

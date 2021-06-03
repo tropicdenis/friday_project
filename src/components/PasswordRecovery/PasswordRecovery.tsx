@@ -6,6 +6,7 @@ import {AppStateType} from "../../Redux/redux_store";
 import {Redirect} from "react-router-dom";
 
 const PasswordRecovery = () => {
+    const [isRedirect, setRedirect] = useState(false)
     const isRecovered = useSelector<AppStateType, boolean>(state => state.passwordRecovery.isRecovered)
     const responseError = useSelector<AppStateType, string>(state => state.passwordRecovery.responseError)
     const [email, setEmail] = useState('')
@@ -29,7 +30,10 @@ const PasswordRecovery = () => {
     }
 
     const onRedirectToLogin = () => {
-                return (<Redirect to={'/login'}/>)
+        setRedirect(true)
+    }
+    if (isRedirect) {
+        return (<Redirect to={'/login'}/>)
     }
 
     return (

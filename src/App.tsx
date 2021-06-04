@@ -16,7 +16,7 @@ export const PATH = {
     profile: '/profile',
     Component404: '/404',
     passwordRecovery: '/passwordRecovery',
-    newPassword: '/newPassword',
+    newPassword: '/newPassword/:token?',
     test: '/test'
 }
 

@@ -1,0 +1,8 @@
+.app {
+  background: linear-gradient(180deg, #e6d4de 0%, #9890c7 100%);
+  text-align: center;
+}
+.navBar {
+  position: absolute;
+  width: 100%;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
-import {Route, Switch, Redirect} from 'react-router-dom';
-import './App.css';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import style from './App.module.css';
 import Login from "./components/Login/Login";
 import Registration from './components/Registration/Registartion';
 import Profile from './components/Profile/Profile';
@@ -21,18 +21,18 @@ export const PATH = {
 }
 
 const App = () => {
+
     return (
-        <div className="App">
+        <div className={style.app}>
+            <div className={style.navBar}> <Navbar /></div>
             <Switch>
-                <Route exact path={"/"} render={() => <Navbar />}/>
-                <Route path={PATH.login} render={() => <Login/>}/>
-                <Route path={PATH.registration} render={() => <Registration/>}/>
-                <Route path={PATH.profile} render={() => <Profile/>}/>
-                <Route path={PATH.Component404} render={() => <Component404/>}/>
-                <Route path={PATH.passwordRecovery} render={() => <PasswordRecovery/>}/>
-                <Route path={PATH.newPassword} render={() => <NewPassword/>}/>
-                <Route path={PATH.test} render={() => <Test/>}/>
-                <Redirect from={'*'} to={"/404"}/>
+                <Route path={PATH.login} render={() => <Login />} />
+                <Route path={PATH.registration} render={() => <Registration />} />
+                <Route path={PATH.profile} render={() => <Profile />} />
+                <Route path={PATH.Component404} render={() => <Component404 />} />
+                <Route path={PATH.passwordRecovery} render={() => <PasswordRecovery />} />
+                <Route path={PATH.newPassword} render={() => <NewPassword />} />
+                <Redirect from={'*'} to={"/404"} />
             </Switch>
         </div>
     );

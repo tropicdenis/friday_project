@@ -1,11 +1,11 @@
 import React from 'react';
-import './Component404.css';
+import style from './Component404.module.css';
 
 const Component404 = () => {
   return (
-      <div className="Component404">
-        404: Page not found!
-      </div>
+    <div className={style.main}>
+      Page not found!
+    </div>
   );
 }
 

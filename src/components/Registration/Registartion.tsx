@@ -96,11 +96,11 @@ const Registration = () => {
           </div>
           <div className={`${style.formInput}`}>
             <input type={typePassword} placeholder='Enter your password' value={password} onChange={onChangePassword} />
-            <span className={style.photoEye} onClick={onClickTypePassword}/>
+            <span className={style.photoEye} onClick={onClickTypeConfirmPassword} />
           </div>
           <div className={`${style.formInput} ${style.formInputLastChild}`}>
             <input type={typeConfirmPassword} placeholder='Confirm your password' value={confirmPassword} onKeyPress={onKeyPressHandler} onChange={onChangeConfirmPassword} />
-            <span className={style.photoEye} onClick={onClickTypeConfirmPassword}/>
+            <span className={style.photoEye} onClick={onClickTypeConfirmPassword} />
             <span className={style.formError}>{error ? error : responseError ? responseError : ''}</span>
           </div>
           <div className={style.flexButtons}>

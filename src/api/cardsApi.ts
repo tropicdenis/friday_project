@@ -16,6 +16,9 @@ export const authAPI = {
     },
     passwordRecovery(recoveryData: PasswordRecoveryDataType) {
         return instance.post('auth/forgot', recoveryData)
+    },
+    isAuth() {
+        return instance.post('auth/me')
     }
 }
 //Types

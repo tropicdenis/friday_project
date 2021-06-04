@@ -19,7 +19,7 @@ const PasswordRecovery = () => {
             email: email,
             from: 'test-front-admin <ai73a@yandex.by>)',
             message: `<div style="background-color: lime; padding: 15px"> 
-                        password recovery link: <a href='http://localhost:3000/#/set-new-password/$token$'>link</a>
+                        password recovery link: <a href='https://tropicdenis.github.io/friday_project/#//newPassword/$token$'>link</a>
                       </div>`
         };
         dispatch(passwordRecoveryThunk(recoveryData))

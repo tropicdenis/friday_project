@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { authAPI, LoginType, ResponseType } from "../api/cardsApi";
-import { setIsAuth } from "./authReducer";
+import { ErrorDataType } from "./registrationReducer";
 
 export const initialState = {
     isLoggedIn: false,
@@ -17,8 +17,7 @@ export const initialState = {
         rememberMe: false,
         error: "",
     },
-    responseError: "",
-    token: ''
+    responseError: ""
 }
 
 export type InitialStateLoginType = typeof initialState;
@@ -31,8 +30,6 @@ export const loginReducer = (state: InitialStateLoginType = initialState, action
             return { ...state, dataLogin: action.data }
         case "LOGIN/SET-RESPONSE-ERROR":
             return { ...state, responseError: action.responseError }
-        case 'LOGIN/SET-RESPONSE-TOKEN':
-            return { ...state, token: action.token }
         default:
             return state
     }
@@ -45,8 +42,6 @@ export const setDataResponseAC = (data: ResponseType) =>
     ({ type: "LOGIN/SET-DATA", data } as const)
 export const setResponseErrorAC = (responseError: string) =>
     ({ type: "LOGIN/SET-RESPONSE-ERROR", responseError } as const)
-export const setResponseTokenAC = (token: string) =>
-    ({ type: "LOGIN/SET-RESPONSE-TOKEN", token } as const)
 
 //Thunks
 export const loginTC = (data: LoginType) => (dispatch: Dispatch) => {
@@ -54,33 +49,18 @@ export const loginTC = (data: LoginType) => (dispatch: Dispatch) => {
         .then((res) => {
             dispatch(setLoginDataAC(true))
             dispatch(setDataResponseAC(res.data))
-            dispatch(setResponseTokenAC(res.data.token))
         })
         .catch((error: ErrorDataType) => {
             dispatch(setResponseErrorAC(error.response.data.error))
         })
 }
 
+
+
 //Types
 export type ActionType =
     ReturnType<typeof setLoginDataAC>
     | ReturnType<typeof setDataResponseAC>
     | ReturnType<typeof setResponseErrorAC>
-    | ReturnType<typeof setResponseTokenAC>
 
 
-
-type ErrorDataType = {
-    response: {
-        data: ErrorRegistration
-    }
-}
-
-type ErrorRegistration = {
-    emailRegExp: {},
-    error: string
-    in: string
-    isEmailValid: boolean
-    isPassValid: boolean
-    passwordRegExp: string
-}

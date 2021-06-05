@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { authAPI } from "../api/cardsApi";
-import { setDataResponseAC, setLoginDataAC, setResponseTokenAC } from "./loginReducer";
+import { setDataResponseAC, setLoginDataAC } from "./loginReducer";
 import { ErrorDataType } from "./registrationReducer";
 
 
@@ -33,12 +33,9 @@ export const isAuthTC = () => (dispatch: Dispatch) => {
 	authAPI.isAuth().then(res => {
 		dispatch(setDataResponseAC(res.data))
 		dispatch(setLoginDataAC(true))
-		dispatch(setResponseTokenAC(res.data.token))
 	}
 	).catch((error: ErrorDataType) => {
 		dispatch(setLoginDataAC(false))
-		return error.response.data.error
-
 	})
 
 

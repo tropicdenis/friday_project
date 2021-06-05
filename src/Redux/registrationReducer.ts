@@ -51,7 +51,7 @@ export type ErrorDataType = {
 	}
 }
 
-type ErrorRegistration = {
+export type ErrorRegistration = {
 	emailRegExp: {},
 	error: string
 	in: string

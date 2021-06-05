@@ -1,10 +1,16 @@
 import React, { ChangeEvent, useState } from 'react';
 import style from './NewPassword.module.css';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setNewPasswordTC, setRecoveryFlag } from "../../Redux/passwordRecoveryReducer";
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
+import { AppStateType } from '../../Redux/redux_store';
+import { PATH } from '../../App';
 
 const NewPassword = () => {
+
+  const isInfo = useSelector<AppStateType, boolean>(state => state.passwordRecovery.info)
+
+
   const dispatch = useDispatch();
   dispatch(setRecoveryFlag(false))
 
@@ -17,9 +23,12 @@ const NewPassword = () => {
     setNewPassword(e.currentTarget.value);
   }
 
-
   const onChangeNewPasswordAPI = () => {
-    dispatch(setNewPasswordTC({ newPassword, token }))
+    dispatch(setNewPasswordTC({ password: newPassword, resetPasswordToken: token }))
+  }
+
+  if (!isInfo) {
+    return <Redirect to={PATH.login} />
   }
 
   return (

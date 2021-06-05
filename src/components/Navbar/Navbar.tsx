@@ -1,7 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { AppStateType } from '../../Redux/redux_store';
 import s from './Navbar.module.css';
 
 

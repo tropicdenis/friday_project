@@ -3,36 +3,8 @@ import style from './Profile.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../Redux/redux_store";
 import { isAuthTC } from '../../Redux/authReducer';
-import { Redirect, useParams } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { PATH } from '../../App';
-
-
-const Profile = () => {
-
-  const dispatch = useDispatch();
-
-  const userData = useSelector<AppStateType, dataLoginType>(state => state.login.dataLogin)
-  const isAuth = useSelector<AppStateType, boolean>(state => state.login.isLoggedIn)
-
-
-  useEffect(() => {
-    if (!userData.created) {
-      dispatch(isAuthTC());
-    }
-
-  }, [])
-  if (!isAuth) {
-    return <Redirect to={PATH.login} />
-  }
-
-  return (
-    <div className={style.main}>
-      {JSON.stringify(userData)}
-    </div>
-  );
-}
-
-export default Profile;
 
 
 type dataLoginType = {
@@ -48,3 +20,33 @@ type dataLoginType = {
   rememberMe: boolean
   error: string
 }
+
+const Profile = () => {
+
+  const dispatch = useDispatch();
+
+  const userData = useSelector<AppStateType, dataLoginType>(state => state.login.dataLogin)
+  const isAuth = useSelector<AppStateType, boolean>(state => state.login.isLoggedIn)
+
+
+  useEffect(() => {
+    if (!userData.created) {
+      dispatch(isAuthTC());
+    }
+
+  }, [])
+
+  if (!isAuth) {
+    return <Redirect to={PATH.login} />
+  }
+
+  return (
+    <div className={style.main}>
+      {JSON.stringify(userData)}
+    </div>
+  );
+}
+
+export default Profile;
+
+

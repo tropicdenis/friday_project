@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const instance = axios.create({
     baseURL: "https://neko-back.herokuapp.com/2.0",
-    //baseURL: 'http://localhost:7542/2.0/',
+    // baseURL: 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
 
@@ -19,6 +19,9 @@ export const authAPI = {
     },
     isAuth() {
         return instance.post('auth/me')
+    },
+    setNewPassword(data: any) {
+        return instance.post('auth/set-new-password', data)
     }
 }
 //Types
@@ -39,6 +42,7 @@ export type ResponseType = {
     verified: boolean;
     rememberMe: boolean;
     error: string;
+    token: string
 }
 export type RegistrationDataType = {
     email: string

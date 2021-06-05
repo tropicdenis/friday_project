@@ -1,18 +1,25 @@
 import React, { ChangeEvent, useState } from 'react';
 import style from './NewPassword.module.css';
 import { useDispatch } from "react-redux";
-import { setRecoveryFlag } from "../../Redux/passwordRecoveryReducer";
+import { setNewPasswordTC, setRecoveryFlag } from "../../Redux/passwordRecoveryReducer";
+import { useParams } from 'react-router-dom';
 
 const NewPassword = () => {
   const dispatch = useDispatch();
   dispatch(setRecoveryFlag(false))
 
 
+  const { token } = useParams<{ token: string }>()
   const [newPassword, setNewPassword] = useState('')
 
 
   const onChangeNewPassword = (e: ChangeEvent<HTMLInputElement>) => {
     setNewPassword(e.currentTarget.value);
+  }
+
+
+  const onChangeNewPasswordAPI = () => {
+    dispatch(setNewPasswordTC({ newPassword, token }))
   }
 
   return (
@@ -33,7 +40,7 @@ const NewPassword = () => {
             Create new password and we will send you further instructions to email
             </p>
           <div>
-            <button className={style.mainButton}>Create new password</button>
+            <button onClick={onChangeNewPasswordAPI} className={style.mainButton}>Create new password</button>
           </div>
         </div>
       </div>

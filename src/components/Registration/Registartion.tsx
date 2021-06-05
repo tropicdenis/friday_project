@@ -10,6 +10,8 @@ const Registration = () => {
 
   const isRegistration = useSelector<AppStateType, boolean>(state => state.registration.isRegistration)
   const responseError = useSelector<AppStateType, string>(state => state.registration.responseError)
+  const isAuth = useSelector<AppStateType, boolean>(state => state.login.isLoggedIn)
+
 
   const dispatch = useDispatch();
   const [email, setEmail] = useState<string>('')
@@ -54,9 +56,9 @@ const Registration = () => {
   const setRegistrationData = () => {
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
       setError('Неверный логин')
-    } else if (!/^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$/i.test(password)) {
+    } /* else if (!/^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$/i.test(password)) {
       setError('Неверный пароль')
-    } else {
+    } */ else {
       if (password === confirmPassword) {
         dispatch(registrationTC({ email, password }))
         setEmail('')
@@ -81,6 +83,9 @@ const Registration = () => {
   if (isRegistration) {
     return <Redirect to={PATH.login} />
   }
+  if (isAuth) {
+    return <Redirect to={PATH.profile} />
+  }
   return (
     <div className={style.main}>
       <div className={style.mainBlock}>
@@ -96,7 +101,7 @@ const Registration = () => {
           </div>
           <div className={`${style.formInput}`}>
             <input type={typePassword} placeholder='Enter your password' value={password} onChange={onChangePassword} />
-            <span className={style.photoEye} onClick={onClickTypeConfirmPassword} />
+            <span className={style.photoEye} onClick={onClickTypePassword} />
           </div>
           <div className={`${style.formInput} ${style.formInputLastChild}`}>
             <input type={typeConfirmPassword} placeholder='Confirm your password' value={confirmPassword} onKeyPress={onKeyPressHandler} onChange={onChangeConfirmPassword} />

@@ -1,8 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { AppStateType } from '../../Redux/redux_store';
 import s from './Navbar.module.css';
 
+
+
 const Navbar = () => {
+
     return (
         <nav className={s.nav}>
             <div className={`${s.item} ${s.active}`}>
@@ -18,7 +23,7 @@ const Navbar = () => {
                 <NavLink to={"/passwordRecovery"} activeClassName={s.activeLink}>PasswordRecovery</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to={"/newPassword"} activeClassName={s.activeLink}>NewPassword</NavLink>
+                <NavLink to={`/newPassword/`} activeClassName={s.activeLink}>NewPassword</NavLink>
             </div>
         </nav>
 

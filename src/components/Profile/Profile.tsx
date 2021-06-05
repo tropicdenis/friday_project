@@ -3,21 +3,27 @@ import style from './Profile.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../Redux/redux_store";
 import { isAuthTC } from '../../Redux/authReducer';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
+import { PATH } from '../../App';
+
 
 const Profile = () => {
+
   const dispatch = useDispatch();
 
-  const userData = useSelector<AppStateType>(state => state.login.dataLogin)
-  const isAuth = useSelector<AppStateType>(state => state.isAuth.isAuth)
-
-
-  const { token } = useParams<{ token: string }>();
+  const userData = useSelector<AppStateType, dataLoginType>(state => state.login.dataLogin)
+  const isAuth = useSelector<AppStateType, boolean>(state => state.login.isLoggedIn)
 
 
   useEffect(() => {
-    dispatch(isAuthTC());
+    if (!userData.created) {
+      dispatch(isAuthTC());
+    }
+
   }, [])
+  if (!isAuth) {
+    return <Redirect to={PATH.login} />
+  }
 
   return (
     <div className={style.main}>
@@ -27,3 +33,18 @@ const Profile = () => {
 }
 
 export default Profile;
+
+
+type dataLoginType = {
+  _id: string,
+  email: string,
+  name: string
+  avatar: string | null,
+  publicCardPacksCount: number,
+  created: string
+  updated: string
+  isAdmin: boolean
+  verified: boolean
+  rememberMe: boolean
+  error: string
+}

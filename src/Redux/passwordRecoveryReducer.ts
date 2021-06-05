@@ -1,6 +1,6 @@
-import {Dispatch} from "redux";
-import {authAPI, PasswordRecoveryDataType} from "../api/cardsApi";
-import {ErrorDataType} from "./registrationReducer";
+import { Dispatch } from "redux";
+import { authAPI, PasswordRecoveryDataType } from "../api/cardsApi";
+import { ErrorDataType } from "./registrationReducer";
 
 export enum RECOVERY_ACTIONS_TYPE {
     SET_RECOVERY_FlAG = "SET_RECOVERY_FlAG",
@@ -18,7 +18,7 @@ export const passwordRecoveryReducer = (state: InitialStateType = initialState, 
 
     switch (action.type) {
         case RECOVERY_ACTIONS_TYPE.SET_RECOVERY_FlAG:
-            return {...state, isRecovered: action.isRecovered}
+            return { ...state, isRecovered: action.isRecovered }
         case RECOVERY_ACTIONS_TYPE.SET_RESPONSE_ERROR_PASSWORD:
             return { ...state, responseError: action.responseError }
         default:
@@ -45,6 +45,19 @@ export const passwordRecoveryThunk = (recoveryData: PasswordRecoveryDataType) =>
     }).catch((error: ErrorDataType) => {
         dispatch(setResponseErrorPassword(error.response.data.error))
     })
+}
+
+export const setNewPasswordTC = (data: setNewPasswordTCType) => (dispatch: Dispatch) => {
+    authAPI.setNewPassword(data).then(res => {
+        debugger
+    }).catch(err => {
+        debugger
+    })
+}
+
+type setNewPasswordTCType = {
+    newPassword: string
+    token: string
 }
 
 type ActionsType =

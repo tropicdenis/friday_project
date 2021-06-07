@@ -2,8 +2,8 @@ import axios from 'axios'
 import { setNewPasswordTCType } from '../Redux/passwordRecoveryReducer'
 
 const instance = axios.create({
-    // baseURL: "https://neko-back.herokuapp.com/2.0/",
-    baseURL: 'http://localhost:7542/2.0/',
+    baseURL: "https://neko-back.herokuapp.com/2.0/",
+    // baseURL: 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
 
@@ -15,7 +15,7 @@ export const authAPI = {
         return instance.post<ResponseType>("auth/login", data)
     },
     logout() {
-        return instance.delete('auth/me',{})
+        return instance.delete('auth/me', {})
     },
     passwordRecovery(recoveryData: PasswordRecoveryDataType) {
         return instance.post('auth/forgot', recoveryData)

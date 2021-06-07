@@ -1,7 +1,7 @@
-import {Dispatch} from "redux";
-import {authAPI} from "../api/cardsApi";
-import {setDataResponseAC, setLoginDataAC, setResponseTokenAC} from "./loginReducer";
-import {ErrorDataType} from "./registrationReducer";
+import { Dispatch } from "redux";
+import { authAPI } from "../api/cardsApi";
+import { setDataResponseAC, setLoginDataAC, setResponseTokenAC } from "./loginReducer";
+import { ErrorDataType } from "./registrationReducer";
 
 
 export enum ACTION_TYPES {
@@ -27,19 +27,18 @@ const authReducer = (state: initialStateType = initialState, action: ProfileActi
     }
 }
 
-export const setIsAuth = (isAuth: boolean) => ({type: ACTION_TYPES.IS_AUTH, isAuth} as const)
+export const setIsAuth = (isAuth: boolean) => ({ type: ACTION_TYPES.IS_AUTH, isAuth } as const)
 
 export const isAuthTC = () => (dispatch: Dispatch) => {
     authAPI.isAuth()
         .then(res => {
-                dispatch(setDataResponseAC(res.data))
-                dispatch(setLoginDataAC(true))
-                dispatch(setResponseTokenAC(res.data.token))
-            }
+            dispatch(setDataResponseAC(res.data))
+            dispatch(setLoginDataAC(true))
+            dispatch(setResponseTokenAC(res.data.token))
+        }
         )
         .catch((error: ErrorDataType) => {
             dispatch(setLoginDataAC(false))
-            return error.response.data.error
         })
 }
 

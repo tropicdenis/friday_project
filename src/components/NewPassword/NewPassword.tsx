@@ -8,7 +8,7 @@ import { PATH } from '../../App';
 
 const NewPassword = () => {
 
-  const isInfo = useSelector<AppStateType, boolean>(state => state.passwordRecovery.info)
+  const isInfo = useSelector<AppStateType, boolean>(state => state.passwordRecovery.isInfo)
 
 
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const NewPassword = () => {
         <div className={style.form}>
           <div className={style.formInput}>
             <input type="password" placeholder='Enter your new password' value={newPassword} onChange={onChangeNewPassword} />
-            <span className={style.formError}/>
+            <span className={style.formError} />
           </div>
           <p className={style.textAfterInput}>
             Create new password and we will send you further instructions to email

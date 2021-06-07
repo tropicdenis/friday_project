@@ -3,7 +3,7 @@ import './index.css';
 import {store} from "./Redux/redux_store";
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import {App} from './App';
 import {Provider} from "react-redux";
 import {HashRouter} from "react-router-dom";
 
@@ -12,7 +12,4 @@ ReactDOM.render(
         <HashRouter>
             <App/>
         </HashRouter>
-
-    </Provider>,
-    document.getElementById('root')
-);
+    </Provider>,document.getElementById('root'));

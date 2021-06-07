@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
 import { authAPI, RegistrationDataType } from "../api/cardsApi";
+import {setAppStatusAC} from "./app_reducer";
 
 
 export enum AUTH_ACTIONS_TYPE {
@@ -34,8 +35,10 @@ export const setResponseError = (responseError: string) => ({ type: AUTH_ACTIONS
 //thunks
 
 export const registrationTC = (data: RegistrationDataType) => (dispatch: Dispatch) => {
+	dispatch(setAppStatusAC('loading'))
 	authAPI.registration(data).then(res => {
 		dispatch(setRegistrationData(true))
+		dispatch(setAppStatusAC('succeeded'))
 	}).catch((error: ErrorDataType) => {
 		dispatch(setResponseError(error.response.data.error))
 	})

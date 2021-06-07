@@ -1,24 +1,23 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import style from './Login.module.css';
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from 'react-router-dom';
-import { AppStateType } from "../../Redux/redux_store";
-import { loginTC, setResponseErrorAC } from "../../Redux/loginReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {Redirect} from 'react-router-dom';
+import {AppStateType} from "../../Redux/redux_store";
+import {loginTC, setResponseErrorAC} from "../../Redux/loginReducer";
+import {PATH} from "../../App";
 
-const Login = () => {
-
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [rememberMe, setRememberMe] = useState(false)
+export const Login = () => {
+    const [email, setEmail] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
+    const [rememberMe, setRememberMe] = useState<boolean>(false)
     const [typePassword, setTypePassword] = useState<string>('password')
 
     const dispatch = useDispatch()
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.login.isLoggedIn)
     const responseError = useSelector<AppStateType, string>(state => state.login.responseError)
 
-
     if (isLoggedIn) {
-        return <Redirect to={"/profile"} />
+        return <Redirect to={PATH.profile} />
     }
 
     const setUserData = () => {
@@ -79,4 +78,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+

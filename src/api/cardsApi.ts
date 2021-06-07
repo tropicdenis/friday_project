@@ -7,13 +7,15 @@ const instance = axios.create({
     withCredentials: true,
 })
 
-
 export const authAPI = {
     registration(data: RegistrationDataType) {
         return instance.post('auth/register', data)
     },
     login(data: LoginType) {
         return instance.post<ResponseType>("auth/login", data)
+    },
+    logout() {
+        return instance.delete('auth/me',{})
     },
     passwordRecovery(recoveryData: PasswordRecoveryDataType) {
         return instance.post('auth/forgot', recoveryData)

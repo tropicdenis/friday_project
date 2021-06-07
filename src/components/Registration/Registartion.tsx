@@ -7,13 +7,11 @@ import { Redirect } from 'react-router';
 import { PATH } from '../../App';
 
 const Registration = () => {
-
+  const dispatch = useDispatch();
   const isRegistration = useSelector<AppStateType, boolean>(state => state.registration.isRegistration)
   const responseError = useSelector<AppStateType, string>(state => state.registration.responseError)
   const isAuth = useSelector<AppStateType, boolean>(state => state.login.isLoggedIn)
 
-
-  const dispatch = useDispatch();
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')

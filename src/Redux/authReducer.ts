@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
 import { authAPI } from "../api/cardsApi";
+import { setAppStatusAC } from "./app_reducer";
 import { setDataResponseAC, setLoginDataAC, setResponseTokenAC } from "./loginReducer";
 import { ErrorDataType } from "./registrationReducer";
 
@@ -30,15 +31,18 @@ const authReducer = (state: initialStateType = initialState, action: ProfileActi
 export const setIsAuth = (isAuth: boolean) => ({ type: ACTION_TYPES.IS_AUTH, isAuth } as const)
 
 export const isAuthTC = () => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     authAPI.isAuth()
         .then(res => {
             dispatch(setDataResponseAC(res.data))
             dispatch(setLoginDataAC(true))
             dispatch(setResponseTokenAC(res.data.token))
+            dispatch(setAppStatusAC('succeeded'))
         }
         )
         .catch((error: ErrorDataType) => {
             dispatch(setLoginDataAC(false))
+            dispatch(setAppStatusAC('succeeded'))
         })
 }
 

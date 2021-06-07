@@ -41,6 +41,7 @@ export const registrationTC = (data: RegistrationDataType) => (dispatch: Dispatc
 		dispatch(setAppStatusAC('succeeded'))
 	}).catch((error: ErrorDataType) => {
 		dispatch(setResponseError(error.response.data.error))
+		dispatch(setAppStatusAC('succeeded'))
 	})
 }
 

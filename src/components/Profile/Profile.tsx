@@ -1,14 +1,15 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import style from './Profile.module.css';
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../Redux/redux_store";
-import {isAuthTC} from '../../Redux/authReducer';
-import {Redirect} from 'react-router-dom';
-import {PATH} from '../../App';
-import {LogOut} from "../LogOut/LogOut";
+import { useDispatch, useSelector } from "react-redux";
+import { AppStateType } from "../../Redux/redux_store";
+import { isAuthTC } from '../../Redux/authReducer';
+import { Redirect } from 'react-router-dom';
+import { PATH } from '../../App';
+import { LogOut } from "../LogOut/LogOut";
 
 const Profile = () => {
     const dispatch = useDispatch();
+
     const userData = useSelector<AppStateType, dataLoginType>(state => state.login.dataLogin)
     const isAuth = useSelector<AppStateType, boolean>(state => state.login.isLoggedIn)
 
@@ -18,20 +19,21 @@ const Profile = () => {
         }
     }, [])
     if (!isAuth) {
-        return <Redirect to={PATH.login}/>
+        return <Redirect to={PATH.login} />
     }
 
     return (
         <div className={style.main}>
-            {JSON.stringify(userData)}
-            <button><LogOut/></button>
+            <div>{JSON.stringify(userData)}</div>
+
+            <button><LogOut /></button>
         </div>
     );
 }
 
 export default Profile;
 
-type dataLoginType = {
+export type dataLoginType = {
     _id: string,
     email: string,
     name: string

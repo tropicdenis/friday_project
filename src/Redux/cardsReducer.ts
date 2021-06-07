@@ -1,6 +1,7 @@
 import { Dispatch } from '@reduxjs/toolkit';
 import React from 'react';
 import { cardsPackAPI } from '../api/cardsApi';
+import { setAppStatusAC } from './app_reducer';
 import { AppThunk } from './redux_store';
 
 
@@ -48,23 +49,32 @@ export const getAllCardsPackAC = (data: initialCardsStateType) => ({ type: ACTIO
 
 
 export const getCardsPackTC = () => (dispatch: Dispatch) => {
+	dispatch(setAppStatusAC('loading'))
 	cardsPackAPI.getCardsPack().then(res => {
 		dispatch(getAllCardsPackAC(res.data))
+		dispatch(setAppStatusAC('succeeded'))
 	}).catch(err => {
+		dispatch(setAppStatusAC('succeeded'))
 	})
 }
 
 export const createCardsPackTC = (cardsPack: any): AppThunk => dispatch => {
+	dispatch(setAppStatusAC('loading'))
 	cardsPackAPI.createCardsPack(cardsPack).then(res => {
 		dispatch(getCardsPackTC())
+		dispatch(setAppStatusAC('succeeded'))
 	}).catch(err => {
+		dispatch(setAppStatusAC('succeeded'))
 	})
 }
 
 export const deleteCardsPackTC = (packsId: string): AppThunk => dispatch => {
+	dispatch(setAppStatusAC('loading'))
 	cardsPackAPI.deleteCardsPack(packsId).then(res => {
 		dispatch(getCardsPackTC())
+		dispatch(setAppStatusAC('succeeded'))
 	}).catch(err => {
+		dispatch(setAppStatusAC('succeeded'))
 	})
 }
 

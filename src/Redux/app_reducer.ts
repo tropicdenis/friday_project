@@ -6,8 +6,7 @@ const initialState = {
     status: 'succeeded' as RequestStatusType
 }
 type InitialStateType = typeof initialState
-export type AppReducerActionType = SetAppStatus
-export type SetAppStatus = ReturnType<typeof setAppStatusAC>
+export type AppReducerActionType = ReturnType<typeof setAppStatusAC>
 
 //Reducer
 export const appReducer = (state: InitialStateType = initialState, action: AppReducerActionType): InitialStateType => {

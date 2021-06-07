@@ -1,9 +1,9 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import style from './Login.module.css';
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from 'react-router-dom';
-import { AppStateType } from "../../Redux/redux_store";
-import { loginTC, setResponseErrorAC } from "../../Redux/loginReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {Redirect} from 'react-router-dom';
+import {AppStateType} from "../../Redux/redux_store";
+import {loginTC, setResponseErrorAC} from "../../Redux/loginReducer";
 
 const Login = () => {
 
@@ -15,7 +15,6 @@ const Login = () => {
     const dispatch = useDispatch()
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.login.isLoggedIn)
     const responseError = useSelector<AppStateType, string>(state => state.login.responseError)
-
 
     if (isLoggedIn) {
         return <Redirect to={"/profile"} />

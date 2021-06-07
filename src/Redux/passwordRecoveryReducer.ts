@@ -1,6 +1,7 @@
 import { Dispatch } from "redux";
 import { authAPI, PasswordRecoveryDataType } from "../api/cardsApi";
 import { ErrorDataType } from "./registrationReducer";
+import {setAppStatusAC} from "./app_reducer";
 
 export enum RECOVERY_ACTIONS_TYPE {
     SET_RECOVERY_FlAG = "SET_RECOVERY_FlAG",
@@ -41,7 +42,9 @@ export const setResponseErrorPassword = (responseError: string) => ({
 
 export const passwordRecoveryThunk = (recoveryData: PasswordRecoveryDataType) => (dispatch: Dispatch) => {
     authAPI.passwordRecovery(recoveryData).then(res => {
+        dispatch(setAppStatusAC('loading'))
         dispatch(setRecoveryFlag(true))
+        dispatch(setAppStatusAC('succeeded'))
     }).catch((error: ErrorDataType) => {
         dispatch(setResponseErrorPassword(error.response.data.error))
     })
@@ -49,9 +52,7 @@ export const passwordRecoveryThunk = (recoveryData: PasswordRecoveryDataType) =>
 
 export const setNewPasswordTC = (data: setNewPasswordTCType) => (dispatch: Dispatch) => {
     authAPI.setNewPassword(data).then(res => {
-        debugger
     }).catch(err => {
-        debugger
     })
 }
 

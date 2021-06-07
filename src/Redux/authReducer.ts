@@ -40,9 +40,6 @@ export const isAuthTC = () => (dispatch: Dispatch) => {
 		return error.response.data.error
 
 	})
-
-
 }
-
 
 export default authReducer;

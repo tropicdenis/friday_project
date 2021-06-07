@@ -1,6 +1,6 @@
-import { Dispatch } from "redux";
-import { authAPI, LoginType, ResponseType } from "../api/cardsApi";
-import { setIsAuth } from "./authReducer";
+import {Dispatch} from "redux";
+import {authAPI, LoginType, ResponseType} from "../api/cardsApi";
+import {setAppStatusAC} from "./app_reducer";
 
 export const initialState = {
     isLoggedIn: false,
@@ -26,13 +26,13 @@ export type InitialStateLoginType = typeof initialState;
 export const loginReducer = (state: InitialStateLoginType = initialState, action: ActionType): InitialStateLoginType => {
     switch (action.type) {
         case "LOGIN/SET-LOGIN-DATA":
-            return { ...state, isLoggedIn: action.value }
+            return {...state, isLoggedIn: action.value}
         case "LOGIN/SET-DATA":
-            return { ...state, dataLogin: action.data }
+            return {...state, dataLogin: action.data}
         case "LOGIN/SET-RESPONSE-ERROR":
-            return { ...state, responseError: action.responseError }
+            return {...state, responseError: action.responseError}
         case 'LOGIN/SET-RESPONSE-TOKEN':
-            return { ...state, token: action.token }
+            return {...state, token: action.token}
         default:
             return state
     }
@@ -40,21 +40,34 @@ export const loginReducer = (state: InitialStateLoginType = initialState, action
 
 //Action
 export const setLoginDataAC = (value: boolean) =>
-    ({ type: "LOGIN/SET-LOGIN-DATA", value } as const)
+    ({type: "LOGIN/SET-LOGIN-DATA", value} as const)
 export const setDataResponseAC = (data: ResponseType) =>
-    ({ type: "LOGIN/SET-DATA", data } as const)
+    ({type: "LOGIN/SET-DATA", data} as const)
 export const setResponseErrorAC = (responseError: string) =>
-    ({ type: "LOGIN/SET-RESPONSE-ERROR", responseError } as const)
+    ({type: "LOGIN/SET-RESPONSE-ERROR", responseError} as const)
 export const setResponseTokenAC = (token: string) =>
-    ({ type: "LOGIN/SET-RESPONSE-TOKEN", token } as const)
+    ({type: "LOGIN/SET-RESPONSE-TOKEN", token} as const)
 
 //Thunks
 export const loginTC = (data: LoginType) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     authAPI.login(data)
         .then((res) => {
             dispatch(setLoginDataAC(true))
             dispatch(setDataResponseAC(res.data))
             dispatch(setResponseTokenAC(res.data.token))
+            dispatch(setAppStatusAC('succeeded'))
+        })
+        .catch((error: ErrorDataType) => {
+            dispatch(setResponseErrorAC(error.response.data.error))
+        })
+}
+export const logoutTC = () => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    authAPI.logout()
+        .then((res) => {
+            dispatch(setLoginDataAC(false))
+            dispatch(setAppStatusAC('succeeded'))
         })
         .catch((error: ErrorDataType) => {
             dispatch(setResponseErrorAC(error.response.data.error))
@@ -67,8 +80,6 @@ export type ActionType =
     | ReturnType<typeof setDataResponseAC>
     | ReturnType<typeof setResponseErrorAC>
     | ReturnType<typeof setResponseTokenAC>
-
-
 
 type ErrorDataType = {
     response: {

@@ -53,7 +53,6 @@ const NewPassword = () => {
           </div>
         </div>
       </div>
-
     </div>
   );
 }

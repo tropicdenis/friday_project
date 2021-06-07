@@ -8,6 +8,7 @@ import PasswordRecovery from './components/PasswordRecovery/PasswordRecovery';
 import NewPassword from './components/NewPassword/NewPassword';
 import Component404 from "./components/404/Component404";
 import Navbar from "./components/Navbar/Navbar";
+import Pack from './components/Pack/Pack';
 
 export const PATH = {
     login: '/login',
@@ -15,7 +16,8 @@ export const PATH = {
     profile: '/profile',
     Component404: '/404',
     passwordRecovery: '/passwordRecovery',
-    newPassword: '/newPassword/:token?'
+    newPassword: '/newPassword/:token?',
+    pack: '/pack'
 }
 
 const App = () => {
@@ -30,6 +32,7 @@ const App = () => {
                 <Route path={PATH.Component404} render={() => <Component404 />} />
                 <Route path={PATH.passwordRecovery} render={() => <PasswordRecovery />} />
                 <Route path={PATH.newPassword} render={() => <NewPassword />} />
+                <Route path={PATH.pack} render={() => <Pack />} />
                 <Redirect from={'/'} to={PATH.profile} />
                 <Redirect from={'*'} to={"/404"} />
             </Switch>

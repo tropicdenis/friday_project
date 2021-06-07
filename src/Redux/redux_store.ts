@@ -5,6 +5,7 @@ import appReducer from "./app_reducer";
 import thunkMiddleware from "redux-thunk";
 import { registrationReducer } from "./registrationReducer";
 import authReducer from "./authReducer";
+import { cardsReducer } from "./cardsReducer";
 
 
 let rootReducer = combineReducers({
@@ -12,7 +13,8 @@ let rootReducer = combineReducers({
     app: appReducer,
     registration: registrationReducer,
     passwordRecovery: passwordRecoveryReducer,
-    isAuth: authReducer
+    isAuth: authReducer,
+    cards: cardsReducer
 });
 
 

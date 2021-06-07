@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { authAPI, RegistrationDataType } from "../api/cardsApi";
-import {setAppStatusAC} from "./app_reducer";
+import { setAppStatusAC } from "./app_reducer";
 
 
 export enum AUTH_ACTIONS_TYPE {
@@ -15,7 +15,7 @@ let initialState = {
 
 type InitialStateType = typeof initialState;
 
-export const registrationReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const registrationReducer = (state: InitialStateType = initialState, action: RegistrationReducerActionsType): InitialStateType => {
 
 	switch (action.type) {
 		case AUTH_ACTIONS_TYPE.SET_REGISTRATION_DATA:
@@ -44,7 +44,7 @@ export const registrationTC = (data: RegistrationDataType) => (dispatch: Dispatc
 	})
 }
 
-export type ActionsType =
+export type RegistrationReducerActionsType =
 	ReturnType<typeof setRegistrationData> |
 	ReturnType<typeof setResponseError>
 

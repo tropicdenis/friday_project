@@ -27,10 +27,16 @@ export const authAPI = {
         return instance.post('auth/set-new-password', data)
     }
 }
-
+//min=${min}&max=${max}&
 export const cardsPackAPI = {
-    getCardsPack(min: number = 3, max: number = 0, page: number = 2, pageCount: number = 5) {
-        return instance.get(`cards/pack?min=${min}&max=${max}&page=${page}&pageCount=${pageCount}`)
+    getCardsPack(min: number = 3, max: number = 9, page: number = 1, pageCount: number = 10) {
+        return instance.get(`cards/pack?page=${page}&pageCount=${pageCount}&sortPacks=0updated`)
+    },
+    createCardsPack(cardsPack: any) {
+        return instance.post('cards/pack', cardsPack);
+    },
+    deleteCardsPack(packsId: string) {
+        return instance.delete(`cards/pack?id=${packsId}`)
     }
 }
 //Types

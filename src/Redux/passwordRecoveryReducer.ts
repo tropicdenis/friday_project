@@ -16,7 +16,7 @@ let initialState = {
 
 type InitialStateType = typeof initialState;
 
-export const passwordRecoveryReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const passwordRecoveryReducer = (state: InitialStateType = initialState, action: PasswordRecoveryReducerActionsType): InitialStateType => {
 
     switch (action.type) {
         case RECOVERY_ACTIONS_TYPE.SET_RECOVERY_FlAG:
@@ -66,7 +66,7 @@ export type setNewPasswordTCType = {
     resetPasswordToken: string
 }
 
-type ActionsType =
+export type PasswordRecoveryReducerActionsType =
     ReturnType<typeof setRecoveryFlag>
     | ReturnType<typeof setResponseErrorPassword>
 

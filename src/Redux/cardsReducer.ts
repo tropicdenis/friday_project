@@ -1,6 +1,7 @@
-import { Dispatch  } from '@reduxjs/toolkit';
+import { Dispatch } from '@reduxjs/toolkit';
 import React from 'react';
 import { cardsPackAPI } from '../api/cardsApi';
+import { AppThunk } from './redux_store';
 
 
 export enum ACTION_TYPES {
@@ -49,10 +50,22 @@ export const getAllCardsPackAC = (data: initialCardsStateType) => ({ type: ACTIO
 export const getCardsPackTC = () => (dispatch: Dispatch) => {
 	cardsPackAPI.getCardsPack().then(res => {
 		dispatch(getAllCardsPackAC(res.data))
-
 	}).catch(err => {
-
 	})
 }
 
-type CardsPackActionType = ReturnType<typeof getAllCardsPackAC>
+export const createCardsPackTC = (cardsPack: any): AppThunk => dispatch => {
+	cardsPackAPI.createCardsPack(cardsPack).then(res => {
+		dispatch(getCardsPackTC())
+	}).catch(err => {
+	})
+}
+
+export const deleteCardsPackTC = (packsId: string): AppThunk => dispatch => {
+	cardsPackAPI.deleteCardsPack(packsId).then(res => {
+		dispatch(getCardsPackTC())
+	}).catch(err => {
+	})
+}
+
+export type CardsPackActionType = ReturnType<typeof getAllCardsPackAC>

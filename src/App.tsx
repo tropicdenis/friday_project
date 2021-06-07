@@ -11,7 +11,7 @@ import Navbar from "./components/Navbar/Navbar";
 import { Preloader } from "./common/Preloder/preloder";
 import { useSelector } from "react-redux";
 import { AppStateType } from "./Redux/redux_store";
-import Pack from './components/Pack/Pack';
+import Pack from './components/Pack/Packs';
 
 export const PATH = {
     login: '/login',

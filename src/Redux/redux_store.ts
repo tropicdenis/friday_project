@@ -1,11 +1,11 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
-import { loginReducer } from "./loginReducer";
-import { passwordRecoveryReducer } from "./passwordRecoveryReducer";
-import {appReducer} from "./app_reducer";
-import thunkMiddleware from "redux-thunk";
-import { registrationReducer } from "./registrationReducer";
-import authReducer from "./authReducer";
-import { cardsReducer } from "./cardsReducer";
+import { loginReducer, LoginReducerActionType } from "./loginReducer";
+import { passwordRecoveryReducer, PasswordRecoveryReducerActionsType } from "./passwordRecoveryReducer";
+import { appReducer, AppReducerActionType } from "./app_reducer";
+import thunkMiddleware, { ThunkAction } from "redux-thunk";
+import { registrationReducer, RegistrationReducerActionsType } from "./registrationReducer";
+import authReducer, { ProfileActionsType } from "./authReducer";
+import { CardsPackActionType, cardsReducer } from "./cardsReducer";
 
 
 let rootReducer = combineReducers({
@@ -18,5 +18,8 @@ let rootReducer = combineReducers({
 });
 
 
+type AppActionType = AppReducerActionType | ProfileActionsType | CardsPackActionType | LoginReducerActionType | PasswordRecoveryReducerActionsType | RegistrationReducerActionsType;
+
 export type AppStateType = ReturnType<typeof rootReducer>
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+export type AppThunk = ThunkAction<void, AppStateType, unknown, AppActionType>

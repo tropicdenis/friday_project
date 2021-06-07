@@ -37,9 +37,6 @@ export const isAuthTC = () => (dispatch: Dispatch) => {
 	).catch((error: ErrorDataType) => {
 		dispatch(setLoginDataAC(false))
 	})
-
-
 }
-
 
 export default authReducer;

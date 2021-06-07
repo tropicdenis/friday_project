@@ -15,6 +15,9 @@ export const authAPI = {
     login(data: LoginType) {
         return instance.post<ResponseType>("auth/login", data)
     },
+    logout() {
+        return instance.delete('auth/me',{})
+    },
     passwordRecovery(recoveryData: PasswordRecoveryDataType) {
         return instance.post('auth/forgot', recoveryData)
     },

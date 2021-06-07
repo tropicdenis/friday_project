@@ -1,26 +1,26 @@
-const APP_ACT = "APP_ACT";
 
-export type ProfileActionsType = ReturnType<typeof addPostActionCreator>
+//Types
+export type RequestStatusType = 'loading' | 'succeeded'
 
-let initialState: any = {};
+const initialState = {
+    status: 'loading' as RequestStatusType
+}
+type InitialStateType = typeof initialState
+type ActionType = SetAppStatus
+export type SetAppStatus = ReturnType<typeof setAppStatusAC>
 
-const profileReducer = (state = initialState, action: ProfileActionsType) => {
+//Reducer
+export const appReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
-        case APP_ACT:
-            return {
-                ...state,
-            };
+        case 'APP/SET-STATUS':
+            return {...state, status: action.status};
         default :
             return state
     }
 }
 
-export const addPostActionCreator = (newVariable: string) => {
-    return {
-        type: APP_ACT,
-        newVariable
-    } as const
+//Action
+export const setAppStatusAC = (status: RequestStatusType) => {
+    return {type: 'APP/SET-STATUS', status} as const
 }
 
-
-export default profileReducer

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import style from './App.module.css';
-import Login from "./components/Login/Login";
+import {Login} from "./components/Login/Login";
 import Registration from './components/Registration/Registartion';
 import Profile from './components/Profile/Profile';
 import PasswordRecovery from './components/PasswordRecovery/PasswordRecovery';

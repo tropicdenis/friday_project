@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {authAPI, LoginType, ResponseType} from "../api/cardsApi";
 import {setAppStatusAC} from "./app_reducer";
+import { ErrorDataType } from "./registrationReducer";
 
 export const initialState = {
     isLoggedIn: false,
@@ -81,17 +82,3 @@ export type ActionType =
     | ReturnType<typeof setResponseErrorAC>
     | ReturnType<typeof setResponseTokenAC>
 
-type ErrorDataType = {
-    response: {
-        data: ErrorRegistration
-    }
-}
-
-type ErrorRegistration = {
-    emailRegExp: {},
-    error: string
-    in: string
-    isEmailValid: boolean
-    isPassValid: boolean
-    passwordRegExp: string
-}

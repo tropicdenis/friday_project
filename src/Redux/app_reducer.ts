@@ -3,7 +3,7 @@
 export type RequestStatusType = 'loading' | 'succeeded'
 
 const initialState = {
-    status: 'loading' as RequestStatusType
+    status: 'succeeded' as RequestStatusType
 }
 type InitialStateType = typeof initialState
 type ActionType = SetAppStatus

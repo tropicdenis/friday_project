@@ -14,10 +14,8 @@ const NewPassword = () => {
   const dispatch = useDispatch();
   dispatch(setRecoveryFlag(false))
 
-
   const { token } = useParams<{ token: string }>()
   const [newPassword, setNewPassword] = useState('')
-
 
   const onChangeNewPassword = (e: ChangeEvent<HTMLInputElement>) => {
     setNewPassword(e.currentTarget.value);
@@ -43,7 +41,7 @@ const NewPassword = () => {
         <div className={style.form}>
           <div className={style.formInput}>
             <input type="password" placeholder='Enter your new password' value={newPassword} onChange={onChangeNewPassword} />
-            <span className={style.formError}></span>
+            <span className={style.formError}/>
           </div>
           <p className={style.textAfterInput}>
             Create new password and we will send you further instructions to email

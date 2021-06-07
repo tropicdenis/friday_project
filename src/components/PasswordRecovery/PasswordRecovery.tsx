@@ -5,14 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../Redux/redux_store";
 import { Redirect } from "react-router-dom";
 
-
 const PasswordRecovery = () => {
     const isRecovered = useSelector<AppStateType, boolean>(state => state.passwordRecovery.isRecovered)
     const responseError = useSelector<AppStateType, string>(state => state.passwordRecovery.responseError)
     const dispatch = useDispatch()
 
-    const [email, setEmail] = useState('')
-    const [isRedirect, setRedirect] = useState(false)
+    const [email, setEmail] = useState<string>('')
+    const [isRedirect, setRedirect] = useState<boolean>(false)
 
     const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
@@ -23,8 +22,8 @@ const PasswordRecovery = () => {
             email: email,
             from: 'test-front-admin <ai73a@yandex.by>)',
             message: `<div style="background-color: lime; padding: 15px"> 
-                        password recovery link: <a href='https://tropicdenis.github.io/friday_project/#/newPassword/$token$''>link</a>
-                    </div>`
+                        password recovery link: <a href='https://tropicdenis.github.io/friday_project/#//newPassword/$token$'>link</a>
+                      </div>`
         };
         dispatch(passwordRecoveryThunk(recoveryData))
     }
@@ -32,7 +31,6 @@ const PasswordRecovery = () => {
     if (isRecovered) {
         return (<Redirect to={'/newPassword'} />)
     }
-
     const onRedirectToLogin = () => {
         setRedirect(true)
     }
@@ -68,7 +66,6 @@ const PasswordRecovery = () => {
                     <span>Try logging in</span>
                 </div>
             </div>
-
         </div>
     );
 }

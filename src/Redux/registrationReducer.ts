@@ -35,8 +35,8 @@ export const setResponseError = (responseError: string) => ({ type: AUTH_ACTIONS
 //thunks
 
 export const registrationTC = (data: RegistrationDataType) => (dispatch: Dispatch) => {
+	dispatch(setAppStatusAC('loading'))
 	authAPI.registration(data).then(res => {
-		dispatch(setAppStatusAC('loading'))
 		dispatch(setRegistrationData(true))
 		dispatch(setAppStatusAC('succeeded'))
 	}).catch((error: ErrorDataType) => {

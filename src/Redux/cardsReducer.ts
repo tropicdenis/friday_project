@@ -77,5 +77,14 @@ export const deleteCardsPackTC = (packsId: string): AppThunk => dispatch => {
 		dispatch(setAppStatusAC('succeeded'))
 	})
 }
+export const updateCardsPackTC = (cardsPack: any): AppThunk => dispatch => {
+	dispatch(setAppStatusAC('loading'))
+	cardsPackAPI.updateCardsPack(cardsPack).then(res => {
+		dispatch(getCardsPackTC())
+		dispatch(setAppStatusAC('succeeded'))
+	}).catch(err => {
+		dispatch(setAppStatusAC('succeeded'))
+	})
+}
 
 export type CardsPackActionType = ReturnType<typeof getAllCardsPackAC>

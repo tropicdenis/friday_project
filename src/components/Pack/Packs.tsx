@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createCardsPackTC, deleteCardsPackTC, getCardsPackTC, initialCardsStateType } from '../../Redux/cardsReducer';
+import { createCardsPackTC, deleteCardsPackTC, getCardsPackTC, initialCardsStateType, updateCardsPackTC } from '../../Redux/cardsReducer';
 import { AppStateType } from '../../Redux/redux_store';
 import style from '../Pack/Packs.module.css';
 import { OnePack } from './OnePack/OnePack';
@@ -23,18 +23,27 @@ const Pack = () => {
 	const onChangeNewTitlePacks = (event: ChangeEvent<HTMLInputElement>) => {
 		setTitlePacks(event.currentTarget.value);
 	}
-
-	const cardsPack = {
-		name: titlePacks
-	}
-
 	const onClickCreateCardsPack = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-		dispatch(createCardsPackTC({ cardsPack }));
+		dispatch(createCardsPackTC({
+			cardsPack: {
+				name: titlePacks
+			}
+		}));
 		setTitlePacks('')
 	}
+
 	const onClickDeletePack = useCallback((packId: string) => {
 		dispatch(deleteCardsPackTC(packId))
-	}, [cardsFromState])
+	}, [])
+
+	const onClickUpdatePacks = useCallback((packId: string) => {
+		dispatch(updateCardsPackTC({
+			cardsPack: {
+				_id: packId,
+				name: 'update new packs'
+			}
+		}))
+	}, [])
 
 
 	const allPacks = cardsFromState.cardPacks.map(pack => <OnePack
@@ -43,6 +52,7 @@ const Pack = () => {
 		cardsCount={pack.cardsCount}
 		updated={pack.updated}
 		onClickDeletePack={onClickDeletePack}
+		onClickUpdatePack={onClickUpdatePacks}
 	/>
 	)
 

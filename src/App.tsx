@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import React from 'react';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import style from './App.module.css';
-import { Login } from "./components/Login/Login";
+import {Login} from "./components/Login/Login";
 import Registration from './components/Registration/Registartion';
-import Profile, { dataLoginType } from './components/Profile/Profile';
+import Profile from './components/Profile/Profile';
 import PasswordRecovery from './components/PasswordRecovery/PasswordRecovery';
 import NewPassword from './components/NewPassword/NewPassword';
 import Component404 from "./components/404/Component404";
 import Navbar from "./components/Navbar/Navbar";
-import { Preloader } from "./common/Preloder/preloder";
-import { useDispatch, useSelector } from "react-redux";
-import { AppStateType } from "./Redux/redux_store";
+import {Preloader} from "./common/Preloder/preloder";
+import {useSelector} from "react-redux";
+import {AppStateType} from "./Redux/redux_store";
 import Pack from './components/Pack/Packs';
-import { isAuthTC } from './Redux/authReducer';
+import {Cards} from "./components/Cards/Cards";
 
 export const PATH = {
     login: '/login',
@@ -21,7 +21,8 @@ export const PATH = {
     Component404: '/404',
     passwordRecovery: '/passwordRecovery',
     newPassword: '/newPassword/:token?',
-    pack: '/pack'
+    pack: '/pack',
+    cards: '/cards'
 }
 
 export const App = () => {
@@ -40,6 +41,7 @@ export const App = () => {
                 <Route path={PATH.passwordRecovery} render={() => <PasswordRecovery />} />
                 <Route path={PATH.newPassword} render={() => <NewPassword />} />
                 <Route path={PATH.pack} render={() => <Pack />} />
+                <Route path={PATH.cards} render={() => <Cards />} />
                 <Redirect from={'/'} to={PATH.profile} />
                 <Redirect from={'*'} to={"/404"} />
             </Switch>

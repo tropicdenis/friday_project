@@ -1,14 +1,11 @@
-import { Dispatch } from '@reduxjs/toolkit';
-import React from 'react';
-import { cardsPackAPI } from '../api/cardsApi';
-import { setAppStatusAC } from './app_reducer';
-import { AppThunk } from './redux_store';
-
+import {Dispatch} from '@reduxjs/toolkit';
+import {cardsPackAPI} from '../api/cardsApi';
+import {setAppStatusAC} from './app_reducer';
+import {AppThunk} from './redux_store';
 
 export enum ACTION_TYPES {
-	GET_CARDS_PACK = 'GET_CARDS_PACK'
+	GET_PACKS_PACK = 'GET_PACKS_PACK'
 }
-
 
 const initialState = {
 	cardPacks: [
@@ -30,11 +27,10 @@ const initialState = {
 
 export type initialCardsStateType = typeof initialState;
 
-
-export const cardsReducer = (state: initialCardsStateType = initialState, action: CardsPackActionType): initialCardsStateType => {
+//Reducer
+export const packsReducer = (state: initialCardsStateType = initialState, action: CardsPackActionType): initialCardsStateType => {
 	switch (action.type) {
-		case ACTION_TYPES.GET_CARDS_PACK:
-
+		case ACTION_TYPES.GET_PACKS_PACK:
 			return {
 				...state, cardPacks: action.data.cardPacks.map(pack => ({ ...pack }))
 			}
@@ -42,12 +38,9 @@ export const cardsReducer = (state: initialCardsStateType = initialState, action
 			return state
 	}
 }
-
-
-export const getAllCardsPackAC = (data: initialCardsStateType) => ({ type: ACTION_TYPES.GET_CARDS_PACK, data })
-
-
-
+//Action
+export const getAllCardsPackAC = (data: initialCardsStateType) => ({ type: ACTION_TYPES.GET_PACKS_PACK, data })
+//Thunk
 export const getCardsPackTC = () => (dispatch: Dispatch) => {
 	dispatch(setAppStatusAC('loading'))
 	cardsPackAPI.getCardsPack().then(res => {

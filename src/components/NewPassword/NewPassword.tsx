@@ -9,8 +9,6 @@ import { PATH } from '../../App';
 const NewPassword = () => {
 
   const isInfo = useSelector<AppStateType, boolean>(state => state.passwordRecovery.isInfo)
-
-
   const dispatch = useDispatch();
   dispatch(setRecoveryFlag(false))
 

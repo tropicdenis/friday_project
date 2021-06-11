@@ -61,6 +61,7 @@ export const loginTC = (data: LoginType) => (dispatch: Dispatch) => {
         })
         .catch((error: ErrorDataType) => {
             dispatch(setResponseErrorAC(error.response.data.error))
+            dispatch(setAppStatusAC('succeeded'))
         })
 }
 export const logoutTC = () => (dispatch: Dispatch) => {

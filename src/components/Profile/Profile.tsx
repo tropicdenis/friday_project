@@ -9,7 +9,6 @@ import { LogOut } from "../LogOut/LogOut";
 
 const Profile = () => {
     const dispatch = useDispatch();
-
     const userData = useSelector<AppStateType, dataLoginType>(state => state.login.dataLogin)
     const isAuth = useSelector<AppStateType, boolean>(state => state.login.isLoggedIn)
 
@@ -17,7 +16,7 @@ const Profile = () => {
         if (!userData.created) {
             dispatch(isAuthTC());
         }
-    }, [])
+    }, [dispatch])
     if (!isAuth) {
         return <Redirect to={PATH.login} />
     }
@@ -25,7 +24,6 @@ const Profile = () => {
     return (
         <div className={style.main}>
             <div>{JSON.stringify(userData)}</div>
-
             <button><LogOut /></button>
         </div>
     );

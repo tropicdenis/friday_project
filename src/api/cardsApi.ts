@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { setNewPasswordTCType } from '../Redux/passwordRecoveryReducer'
+import {setNewPasswordTCType} from '../Redux/passwordRecoveryReducer'
 
 const instance = axios.create({
     baseURL: "https://neko-back.herokuapp.com/2.0/",
@@ -37,6 +37,9 @@ export const cardsPackAPI = {
     },
     deleteCardsPack(packsId: string) {
         return instance.delete(`cards/pack?id=${packsId}`)
+    },
+    getCards(cardsPack_id: string) {
+        return instance.get(`cards/card?cardsPack_id=${cardsPack_id}`)
     }
 }
 //Types

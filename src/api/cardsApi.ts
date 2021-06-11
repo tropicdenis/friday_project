@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {setNewPasswordTCType} from '../Redux/passwordRecoveryReducer'
+import { setNewPasswordTCType } from '../Redux/passwordRecoveryReducer'
 
 const instance = axios.create({
     baseURL: "https://neko-back.herokuapp.com/2.0/",

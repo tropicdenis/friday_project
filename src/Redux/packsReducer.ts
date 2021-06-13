@@ -1,7 +1,7 @@
-import {Dispatch} from '@reduxjs/toolkit';
-import {cardsPackAPI} from '../api/cardsApi';
-import {setAppStatusAC} from './app_reducer';
-import {AppThunk} from './redux_store';
+import { Dispatch } from '@reduxjs/toolkit';
+import { packsAPI } from '../api/cardsApi';
+import { setAppStatusAC } from './app_reducer';
+import { AppThunk } from './redux_store';
 
 export enum ACTION_TYPES {
 	GET_PACKS_PACK = 'GET_PACKS_PACK'
@@ -32,7 +32,7 @@ export const packsReducer = (state: initialCardsStateType = initialState, action
 	switch (action.type) {
 		case ACTION_TYPES.GET_PACKS_PACK:
 			return {
-				...state, cardPacks: action.data.cardPacks.map(pack => ({ ...pack }))
+				...state, ...action.data, cardPacks: action.data.cardPacks.map(pack => ({ ...pack }))
 			}
 		default:
 			return state
@@ -43,7 +43,7 @@ export const getAllCardsPackAC = (data: initialCardsStateType) => ({ type: ACTIO
 //Thunk
 export const getCardsPackTC = () => (dispatch: Dispatch) => {
 	dispatch(setAppStatusAC('loading'))
-	cardsPackAPI.getCardsPack().then(res => {
+	packsAPI.getCardsPack().then(res => {
 		dispatch(getAllCardsPackAC(res.data))
 		dispatch(setAppStatusAC('succeeded'))
 	}).catch(err => {
@@ -53,7 +53,7 @@ export const getCardsPackTC = () => (dispatch: Dispatch) => {
 
 export const createCardsPackTC = (cardsPack: any): AppThunk => dispatch => {
 	dispatch(setAppStatusAC('loading'))
-	cardsPackAPI.createCardsPack(cardsPack).then(res => {
+	packsAPI.createPack(cardsPack).then(res => {
 		dispatch(getCardsPackTC())
 		dispatch(setAppStatusAC('succeeded'))
 	}).catch(err => {
@@ -63,7 +63,7 @@ export const createCardsPackTC = (cardsPack: any): AppThunk => dispatch => {
 
 export const deleteCardsPackTC = (packsId: string): AppThunk => dispatch => {
 	dispatch(setAppStatusAC('loading'))
-	cardsPackAPI.deleteCardsPack(packsId).then(res => {
+	packsAPI.deletePack(packsId).then(res => {
 		dispatch(getCardsPackTC())
 		dispatch(setAppStatusAC('succeeded'))
 	}).catch(err => {
@@ -72,7 +72,7 @@ export const deleteCardsPackTC = (packsId: string): AppThunk => dispatch => {
 }
 export const updateCardsPackTC = (cardsPack: any): AppThunk => dispatch => {
 	dispatch(setAppStatusAC('loading'))
-	cardsPackAPI.updateCardsPack(cardsPack).then(res => {
+	packsAPI.updatePack(cardsPack).then(res => {
 		dispatch(getCardsPackTC())
 		dispatch(setAppStatusAC('succeeded'))
 	}).catch(err => {

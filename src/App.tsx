@@ -1,18 +1,18 @@
 import React from 'react';
-import {Redirect, Route, Switch} from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import style from './App.module.css';
-import {Login} from "./components/Login/Login";
+import { Login } from "./components/Login/Login";
 import Registration from './components/Registration/Registartion';
 import Profile from './components/Profile/Profile';
 import PasswordRecovery from './components/PasswordRecovery/PasswordRecovery';
 import NewPassword from './components/NewPassword/NewPassword';
 import Component404 from "./components/404/Component404";
 import Navbar from "./components/Navbar/Navbar";
-import {Preloader} from "./common/Preloder/preloder";
-import {useSelector} from "react-redux";
-import {AppStateType} from "./Redux/redux_store";
+import { Preloader } from "./common/Preloder/preloder";
+import { useSelector } from "react-redux";
+import { AppStateType } from "./Redux/redux_store";
 import Pack from './components/Pack/Packs';
-import {Cards} from "./components/Cards/Cards";
+import { Cards } from "./components/Cards/Cards";
 
 export const PATH = {
     login: '/login',
@@ -22,7 +22,7 @@ export const PATH = {
     passwordRecovery: '/passwordRecovery',
     newPassword: '/newPassword/:token?',
     pack: '/pack',
-    cards: '/cards'
+    cards: '/cards/:cardsPack_id?'
 }
 
 export const App = () => {

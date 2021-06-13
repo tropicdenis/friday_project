@@ -2,8 +2,8 @@ import axios from 'axios'
 import { setNewPasswordTCType } from '../Redux/passwordRecoveryReducer'
 
 const instance = axios.create({
-    baseURL: "https://neko-back.herokuapp.com/2.0/",
-    // baseURL: 'http://localhost:7542/2.0/',
+    // baseURL: "https://neko-back.herokuapp.com/2.0/",
+    baseURL: 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
 
@@ -28,20 +28,36 @@ export const authAPI = {
     }
 }
 //min=${min}&max=${max}&
-export const cardsPackAPI = {
+export const packsAPI = {
     getCardsPack(min: number = 3, max: number = 9, page: number = 1, pageCount: number = 10) {
         return instance.get(`cards/pack?page=${page}&pageCount=${pageCount}&sortPacks=0updated`)
     },
-    createCardsPack(cardsPack: any) {
+    createPack(cardsPack: any) {
         return instance.post('cards/pack', cardsPack);
     },
-    deleteCardsPack(packsId: string) {
+    deletePack(packsId: string) {
         return instance.delete(`cards/pack?id=${packsId}`)
     },
-    getCards(cardsPack_id: string) {
-        return instance.get(`cards/card?cardsPack_id=${cardsPack_id}`)
+    updatePack(cardsPack: any) {
+        return instance.put(`cards/pack`, cardsPack)
     }
 }
+
+export const cardsAPI = {
+    getCardsPack(cardsPack_id: string) {
+        return instance.get(`cards/card?cardsPack_id=${cardsPack_id}&pageCount=20`)
+    },
+    createCard(card: any) {
+        return instance.post(`cards/card`, card)
+    },
+    deleteCard(cardsPack_id: string) {
+        return instance.delete(`cards/card?id=${cardsPack_id}`)
+    },
+    updateCard(card: any) {
+        return instance.put(`cards/card`, card)
+    },
+}
+
 //Types
 export type LoginType = {
     email: string,

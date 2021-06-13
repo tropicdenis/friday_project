@@ -28,11 +28,12 @@ const PasswordRecovery = () => {
         dispatch(passwordRecoveryThunk(recoveryData))
     }
 
-    if (isRecovered) {
-        return (<Redirect to={'/newPassword'} />)
-    }
+
     const onRedirectToLogin = () => {
         setRedirect(true)
+    }
+    if (isRecovered) {
+        return (<Redirect to={'/newPassword'} />)
     }
     if (isRedirect) {
         return (<Redirect to={'/login'} />)

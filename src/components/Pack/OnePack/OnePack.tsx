@@ -1,5 +1,7 @@
 import React from 'react';
-import { EditableSpan } from '../../EditableSpan/EditableSpan';
+import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { getCardsTC } from '../../../Redux/cardsReducer';
 import style from '../OnePack/OnePack.module.css';
 
 type OnePackType = {
@@ -12,7 +14,8 @@ type OnePackType = {
 }
 
 export const OnePack = (props: OnePackType) => {
-	console.log('one pack');
+	const dispatch = useDispatch();
+
 
 	const onClickDeletePackOnButton = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		props.onClickDeletePack(props.packId)
@@ -28,6 +31,8 @@ export const OnePack = (props: OnePackType) => {
 		<div>{props.updated}</div>
 		<div><button onClick={onClickDeletePackOnButton}>delete</button></div>
 		<div><button onClick={onClickUpdatePackOnButton}>update</button></div>
-		<div><a href="#">cards</a></div>
+		<div><NavLink to={`/cards/${props.packId}`} onClick={() => {
+			dispatch(getCardsTC(props.packId))
+		}}>cards</NavLink></div>
 	</div>
 }

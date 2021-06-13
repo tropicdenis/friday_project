@@ -1,6 +1,7 @@
 import { Dispatch } from "redux";
 import { setAppStatusAC } from "./app_reducer";
-import { cardsAPI } from "../api/cardsApi";
+import { cardsAPI, CardType, UpdateCardType } from "../api/cardsApi";
+import { AppThunk } from "./redux_store";
 
 export enum ACTION_TYPES {
     GET_CARDS = "GET_CARDS",
@@ -28,17 +29,6 @@ let initialState = {
     packUserId: ""
 }
 
-type createACType = {
-    answer: string,
-    question: string,
-    cardsPack_id: string,
-    grade: string,
-    shots: number,
-    user_id: string,
-    created: string,
-    updated: string,
-    _id: string
-}
 
 export type InitialStateCards = typeof initialState
 export type CardsActionType = ReturnType<typeof getCardsAC>
@@ -57,7 +47,7 @@ export const cardsReducer = (state: InitialStateCards = initialState, action: Ca
 export const getCardsAC = (data: InitialStateCards) => ({ type: ACTION_TYPES.GET_CARDS, data })
 
 //Thunk
-export const getCardsTC = (cardsPack_id: string) => (dispatch: Dispatch) => {
+export const getCardsTC = (cardsPack_id: string): AppThunk => dispatch => {
     dispatch(setAppStatusAC('loading'))
     cardsAPI.getCardsPack(cardsPack_id)
         .then(res => {
@@ -68,32 +58,33 @@ export const getCardsTC = (cardsPack_id: string) => (dispatch: Dispatch) => {
             dispatch(setAppStatusAC('succeeded'))
         })
 }
-export const createCardTC = (card: any) => (dispatch: Dispatch) => {
+export const createCardTC = (card: CardType, cardsPack_id: string): AppThunk => dispatch => {
     dispatch(setAppStatusAC('loading'))
     cardsAPI.createCard(card)
         .then(res => {
-            dispatch(getCardsAC(res.data))
+            dispatch(getCardsTC(cardsPack_id))
             dispatch(setAppStatusAC('succeeded'))
         })
         .catch(err => {
             dispatch(setAppStatusAC('succeeded'))
         })
 }
-export const deleteCardTC = (cardId: any) => (dispatch: Dispatch) => {
+export const deleteCardTC = (cardId: string, cardsPack_id: string): AppThunk => dispatch => {
     dispatch(setAppStatusAC('loading'))
     cardsAPI.deleteCard(cardId)
         .then(res => {
-            dispatch(getCardsAC(res.data))
+            dispatch(getCardsTC(cardsPack_id))
             dispatch(setAppStatusAC('succeeded'))
         })
         .catch(err => {
             dispatch(setAppStatusAC('succeeded'))
         })
 }
-export const updateCardTC = (card: any) => (dispatch: Dispatch) => {
+export const updateCardTC = (card: UpdateCardType, cardsPack_id: string): AppThunk => dispatch => {
     dispatch(setAppStatusAC('loading'))
     cardsAPI.updateCard(card)
         .then(res => {
+            dispatch(getCardsTC(cardsPack_id))
             dispatch(setAppStatusAC('succeeded'))
         })
         .catch(err => {

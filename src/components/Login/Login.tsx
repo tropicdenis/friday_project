@@ -16,9 +16,9 @@ export const Login = () => {
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.login.isLoggedIn)
     const responseError = useSelector<AppStateType, string>(state => state.login.responseError)
 
-    /* if (isLoggedIn) {
+    if (isLoggedIn) {
         return <Redirect to={PATH.profile} />
-    } */
+    }
 
     const setUserData = () => {
         dispatch(loginTC({ email, password, rememberMe }))

@@ -32,13 +32,13 @@ export const packsAPI = {
     getCardsPack(min: number = 3, max: number = 9, page: number = 1, pageCount: number = 10) {
         return instance.get(`cards/pack?page=${page}&pageCount=${pageCount}&sortPacks=0updated`)
     },
-    createPack(cardsPack: any) {
+    createPack(cardsPack: CardsPackCreateType) {
         return instance.post('cards/pack', cardsPack);
     },
     deletePack(packsId: string) {
         return instance.delete(`cards/pack?id=${packsId}`)
     },
-    updatePack(cardsPack: any) {
+    updatePack(cardsPack: CardsPackUpdateType) {
         return instance.put(`cards/pack`, cardsPack)
     }
 }
@@ -47,13 +47,13 @@ export const cardsAPI = {
     getCardsPack(cardsPack_id: string) {
         return instance.get(`cards/card?cardsPack_id=${cardsPack_id}&pageCount=20`)
     },
-    createCard(card: any) {
+    createCard(card: CardType) {
         return instance.post(`cards/card`, card)
     },
     deleteCard(cardsPack_id: string) {
         return instance.delete(`cards/card?id=${cardsPack_id}`)
     },
-    updateCard(card: any) {
+    updateCard(card: UpdateCardType) {
         return instance.put(`cards/card`, card)
     },
 }
@@ -86,4 +86,64 @@ export type PasswordRecoveryDataType = {
     email: string,
     from: string,
     message: string
+}
+
+export type CardType = {
+    card: {
+        cardsPack_id: string
+        question?: string // если не отправить будет таким	
+        answer?: string // если не отправить будет таким	
+        grade?: number // 0..5, не обязателен	
+        shots?: number // не обязателен	
+        rating?: number // не обязателен	
+        answerImg?: string // не обязателен	
+        questionImg?: string // не обязателен	
+        questionVideo?: string // не обязателен	
+        answerVideo?: string // не обязателен	
+        type?: string // если не отправить будет таким	
+    }
+}
+
+export type UpdateCardType = {
+    card: {
+        answer?: string,
+        question?: string,
+        cardsPack_id?: string,
+        grade?: string,
+        shots?: number,
+        user_id?: string,
+        created?: string,
+        updated?: string,
+        _id: string
+    }
+}
+
+export type CardsPackCreateType = {
+    cardsPack: {
+        name?: string // если не отправить будет таким	
+        path?: string // если не отправить будет такой	
+        grade?: number // не обязателен	
+        shots?: number // не обязателен	
+        rating?: number // не обязателен	
+        deckCover?: string // не обязателен	
+        private?: false // если не отправить будет такой	
+        type?: string // если не отправить будет таким	
+    }
+}
+
+export type CardsPackUpdateType = {
+    cardsPack: {
+        _id: string
+        user_id?: string
+        name?: string
+        path?: string // папка		
+        cardsCount?: number
+        grade?: number // средняя оценка карточек		
+        shots?: number // количество попыток		
+        rating?: number // лайки		
+        type?: string // ещё будет "folder" (папка)		
+        created?: string
+        updated?: string
+        __v?: number
+    }
 }

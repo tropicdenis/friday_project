@@ -17,9 +17,9 @@ const Profile = () => {
             dispatch(isAuthTC());
         }
     }, [dispatch])
-    /* if (!isAuth) {
+    if (!isAuth) {
         return <Redirect to={PATH.login} />
-    } */
+    }
 
     return (
         <div className={style.main}>

@@ -24,13 +24,11 @@ export const Cards = () => {
             card: {
                 cardsPack_id
             }
-        }))
-        dispatch(getCardsTC(cardsPack_id))
+        }, cardsPack_id))
     }
 
     const onClickDeleteCard = (cardId: string) => {
-        dispatch(deleteCardTC(cardId))
-        dispatch(getCardsTC(cardsPack_id))
+        dispatch(deleteCardTC(cardId, cardsPack_id))
     }
     const onClickUpdateCard = (cardId: any) => {
         dispatch(updateCardTC({
@@ -38,8 +36,7 @@ export const Cards = () => {
                 _id: cardId,
                 question: 'new question'
             }
-        }))
-        dispatch(getCardsTC(cardsPack_id))
+        }, cardsPack_id))
     }
 
     return (
@@ -70,17 +67,6 @@ export const Cards = () => {
                     ))}
                 </div>
             </div>
-
-            {/*<div className={style.paginator}> Paginator
-                <select>
-                    <option value={"4"}>4</option>
-                    <option value={"7"}>7</option>
-                    <option value={"10"}>10</option>
-                    <option value={"20"}>20</option>
-                    <option value={"50"}>50</option>
-                </select>
-                <button>Click</button>
-            </div>*/}
         </div>
     );
 }

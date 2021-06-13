@@ -1,5 +1,5 @@
 import { Dispatch } from '@reduxjs/toolkit';
-import { packsAPI } from '../api/cardsApi';
+import { CardsPackCreateType, CardsPackUpdateType, packsAPI } from '../api/cardsApi';
 import { setAppStatusAC } from './app_reducer';
 import { AppThunk } from './redux_store';
 
@@ -51,7 +51,7 @@ export const getCardsPackTC = () => (dispatch: Dispatch) => {
 	})
 }
 
-export const createCardsPackTC = (cardsPack: any): AppThunk => dispatch => {
+export const createCardsPackTC = (cardsPack: CardsPackCreateType): AppThunk => dispatch => {
 	dispatch(setAppStatusAC('loading'))
 	packsAPI.createPack(cardsPack).then(res => {
 		dispatch(getCardsPackTC())
@@ -70,7 +70,7 @@ export const deleteCardsPackTC = (packsId: string): AppThunk => dispatch => {
 		dispatch(setAppStatusAC('succeeded'))
 	})
 }
-export const updateCardsPackTC = (cardsPack: any): AppThunk => dispatch => {
+export const updateCardsPackTC = (cardsPack: CardsPackUpdateType): AppThunk => dispatch => {
 	dispatch(setAppStatusAC('loading'))
 	packsAPI.updatePack(cardsPack).then(res => {
 		dispatch(getCardsPackTC())

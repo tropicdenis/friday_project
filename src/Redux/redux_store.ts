@@ -1,13 +1,13 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
-import { loginReducer, LoginReducerActionType } from "./loginReducer";
-import { passwordRecoveryReducer, PasswordRecoveryReducerActionsType } from "./passwordRecoveryReducer";
-import { appReducer, AppReducerActionType } from "./app_reducer";
-import thunkMiddleware, { ThunkAction } from "redux-thunk";
-import { registrationReducer, RegistrationReducerActionsType } from "./registrationReducer";
-import authReducer, { ProfileActionsType } from "./authReducer";
-import { CardsPackActionType, packsReducer } from "./packsReducer";
-import { CardsActionType, cardsReducer } from "./cardsReducer";
-import { SearchActionType, searchReducer } from "../components/Search/searchReducer";
+import {applyMiddleware, combineReducers, createStore} from "redux";
+import {loginReducer, LoginReducerActionType} from "./loginReducer";
+import {passwordRecoveryReducer, PasswordRecoveryReducerActionsType} from "./passwordRecoveryReducer";
+import {appReducer, AppReducerActionType} from "./app_reducer";
+import thunkMiddleware, {ThunkAction} from "redux-thunk";
+import {registrationReducer, RegistrationReducerActionsType} from "./registrationReducer";
+import authReducer, {ProfileActionsType} from "./authReducer";
+import {CardsPackActionType, packsReducer} from "./packsReducer";
+import {CardsActionType, cardsReducer} from "./cardsReducer";
+import {SearchActionType} from "../components/Search/searchReducer";
 
 
 let rootReducer = combineReducers({

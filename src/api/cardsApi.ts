@@ -2,8 +2,8 @@ import axios from 'axios'
 import { setNewPasswordTCType } from '../Redux/passwordRecoveryReducer'
 
 const instance = axios.create({
-    // baseURL: "https://neko-back.herokuapp.com/2.0/",
-    baseURL: 'http://localhost:7542/2.0/',
+    baseURL: "https://neko-back.herokuapp.com/2.0/",
+    //baseURL: 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
 
@@ -29,7 +29,7 @@ export const authAPI = {
 }
 //min=${min}&max=${max}&
 export const packsAPI = {
-    getCardsPack(min: number = 3, max: number = 9, page: number = 1, pageCount: number = 10) {
+    getCardsPack(page: number = 2, pageCount: number) {
         return instance.get(`cards/pack?page=${page}&pageCount=${pageCount}&sortPacks=0updated`)
     },
     createPack(cardsPack: CardsPackCreateType) {
@@ -87,7 +87,6 @@ export type PasswordRecoveryDataType = {
     from: string,
     message: string
 }
-
 export type CardType = {
     card: {
         cardsPack_id: string
@@ -103,7 +102,6 @@ export type CardType = {
         type?: string // если не отправить будет таким	
     }
 }
-
 export type UpdateCardType = {
     card: {
         answer?: string,
@@ -117,7 +115,6 @@ export type UpdateCardType = {
         _id: string
     }
 }
-
 export type CardsPackCreateType = {
     cardsPack: {
         name?: string // если не отправить будет таким	
@@ -130,7 +127,6 @@ export type CardsPackCreateType = {
         type?: string // если не отправить будет таким	
     }
 }
-
 export type CardsPackUpdateType = {
     cardsPack: {
         _id: string

@@ -1,19 +1,28 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { createCardsPackTC, deleteCardsPackTC, getCardsPackTC, initialCardsStateType, updateCardsPackTC } from '../../Redux/packsReducer';
-import { AppStateType } from '../../Redux/redux_store';
+import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+    createCardsPackTC,
+    deleteCardsPackTC,
+    getCardsPackTC,
+    initialCardsStateType,
+    updateCardsPackTC
+} from '../../Redux/packsReducer';
+import {AppStateType} from '../../Redux/redux_store';
 import style from '../Pack/Packs.module.css';
-import { Search } from "../Search/Search";
-import { Range } from "../Range/Range";
-import { OnePack } from './OnePack/OnePack';
+import {Search} from "../Search/Search";
+import {Range} from "../Range/Range";
+import {OnePack} from './OnePack/OnePack';
+import UsePagination from "../Paginator/Paginator";
 
 const Packs = () => {
     const dispatch = useDispatch();
     const cardsFromState = useSelector<AppStateType, initialCardsStateType>(state => state.packs);
+    const cardPacksTotalCount = useSelector<AppStateType, number>( state => state.packs.cardPacksTotalCount)
+    const cardPage = useSelector<AppStateType, number>( state => state.packs.page)
     const [titlePacks, setTitlePacks] = useState('');
 
     useEffect(() => {
-        dispatch(getCardsPackTC())
+        dispatch(getCardsPackTC(cardPage))
     }, [dispatch])
 
 
@@ -26,11 +35,11 @@ const Packs = () => {
     }
 
     const onClickCreateCardsPack = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        dispatch(createCardsPackTC({ cardsPack }));
+        dispatch(createCardsPackTC({ cardsPack }, cardPage));
         setTitlePacks('')
     }
     const onClickDeletePack = useCallback((packId: string) => {
-        dispatch(deleteCardsPackTC(packId))
+        dispatch(deleteCardsPackTC(packId, cardPage))
     }, [cardsFromState])
 
     const onClickUpdatePack = useCallback((packId: string) => {
@@ -39,9 +48,12 @@ const Packs = () => {
                 _id: packId,
                 name: 'new name'
             }
-        }))
+        }, cardPage))
     }, [cardsFromState])
 
+    const changePagePaginator = (event: React.ChangeEvent<unknown>, page: number) => {
+        dispatch(getCardsPackTC(page))
+    }
 
     const allPacks = cardsFromState.cardPacks.map(pack => <OnePack
         packId={pack._id}
@@ -59,6 +71,7 @@ const Packs = () => {
                 <Range />
                 <Search />
             </div>
+            <div><UsePagination cardPacksTotalCount={cardPacksTotalCount} cardPage={cardPage} onChange={changePagePaginator}/></div>
             <div>PacksPage</div>
             <div className={style.flexCardsTitle}>
                 <div>name</div>
@@ -70,6 +83,7 @@ const Packs = () => {
                 </div>
             </div>
             <div>{allPacks}</div>
+
         </div>
     )
 }

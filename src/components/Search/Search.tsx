@@ -1,8 +1,7 @@
 import React, {ChangeEvent, useCallback, useState} from 'react'
 import style from './Search.module.css'
 import {useDispatch} from 'react-redux'
-import {setSearchValueAC} from "./searchReducer";
-import {getCardsPackTC} from "../../Redux/packsReducer";
+import {getCardsPackTC, setSearchNameAC} from "../../Redux/packsReducer";
 
 export const Search = () => {
     const dispatch = useDispatch()
@@ -14,9 +13,14 @@ export const Search = () => {
     }
 
     const onSubmit = useCallback(() => {
-        dispatch(setSearchValueAC(inputValue))
-        dispatch(getCardsPackTC())
+        if (inputValue) {
+            dispatch(setSearchNameAC(inputValue))
+        }
+        else {
+           dispatch(getCardsPackTC(3))
+        }
         setInputValue('')
+
     }, [dispatch, inputValue])
 
     return (
@@ -27,7 +31,6 @@ export const Search = () => {
                    type="text"
                    placeholder="Search name"
                    autoFocus>
-
             </input>
             <button type="submit"
                     onClick={onSubmit}

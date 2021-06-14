@@ -1,36 +1,57 @@
-import React, {useState} from "react";
-import style from './Paginator.module.css'
+import React from 'react';
+import {usePagination} from '@material-ui/lab/Pagination';
+import {makeStyles} from '@material-ui/core/styles';
 
-export type PaginatorPropsType = {
-    pageSize: number
-    totalPacks: number
-    onPageChanged: (p: number) => void
-    currentPage: number
+const useStyles = makeStyles({
+    ul: {
+        listStyle: 'none',
+        padding: 0,
+        margin: 0,
+        display: 'flex',
+    },
+});
+type PropsPaginator = {
+    cardPacksTotalCount: number
+    cardPage: number
+    onChange: (event: React.ChangeEvent<unknown>, page: number) => void;
 }
 
-export const Paginator = (props: PaginatorPropsType) => {
-    const pagesCount = Math.ceil(props.totalPacks / props.pageSize);
-    const pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i);
-    }
-    const [portionPages, setPortionPages] = useState<number>(1);
-    const leftPortionPageNumber = (portionPages - 1) * props.pageSize + 1;
-    const rightPortionPageNumber = portionPages * props.pageSize
+export default function UsePagination(props: PropsPaginator) {
+    const classes = useStyles();
+    const { items } = usePagination({
+        count: Math.ceil(props.cardPacksTotalCount/10),
+        page: props.cardPage,
+        onChange: props.onChange
+    });
 
     return (
-        <div className={style.cursor}>
-            {portionPages > 1 && <button onClick={() => setPortionPages(portionPages - 1)}>Prev</button>}
-            {pages
-                .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-                .map((p) => {
-                // @ts-ignore
-                    return <span className={props.currentPage === p && style.selectedPage}
-                             onClick={(e) => { props.onPageChanged(p)}}>{p}</span>
-            })}
-            {pagesCount > portionPages && <button onClick={() => setPortionPages(portionPages + 1)}>Next</button>}
-        </div>
-    )
+        <nav>
+            <ul className={classes.ul}>
+                {items.map(({ page, type, selected, ...item }, index) => {
+                    let children = null;
+
+                    if (type === 'start-ellipsis' || type === 'end-ellipsis') {
+                        children = '…';
+                    } else if (type === 'page') {
+                        children = (
+                            <button type="button" style={{ fontWeight: selected ? 'bold' : undefined }} {...item}>
+                                {page}
+                            </button>
+                        );
+                    } else {
+                        children = (
+                            <button type="button" {...item}>
+                                {type}
+                            </button>
+                        );
+                    }
+
+                    return <li key={index}>{children}</li>;
+                })}
+            </ul>
+        </nav>
+    );
 }
+
 
 

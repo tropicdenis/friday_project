@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import style from "./Cards.module.css"
-import { Range } from "../Range/Range";
-import { useDispatch, useSelector } from "react-redux";
-import { AppStateType } from "../../Redux/redux_store";
-import { createCardTC, deleteCardTC, getCardsTC, InitialStateCards, updateCardTC } from "../../Redux/cardsReducer";
-import { Search } from "../Search/Search";
-import { useParams } from "react-router-dom";
-import { OneCard } from "./OneCard/OneCard";
+import {Range} from "../Range/Range";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../Redux/redux_store";
+import {createCardTC, deleteCardTC, getCardsTC, InitialStateCards, updateCardTC} from "../../Redux/cardsReducer";
+import {Search} from "../Search/Search";
+import {useParams} from "react-router-dom";
+import {OneCard} from "./OneCard/OneCard";
 
 export const Cards = () => {
     const dispatch = useDispatch()
@@ -15,8 +15,8 @@ export const Cards = () => {
     const { cardsPack_id } = useParams<{ cardsPack_id: string }>()
 
     useEffect(() => {
-        dispatch(getCardsTC(cardsPack_id)) // id
-    }, [])
+        dispatch(getCardsTC(cardsPack_id))
+    }, [dispatch, cardsPack_id])
 
 
     const onClickCreateCard = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -30,7 +30,7 @@ export const Cards = () => {
     const onClickDeleteCard = (cardId: string) => {
         dispatch(deleteCardTC(cardId, cardsPack_id))
     }
-    const onClickUpdateCard = (cardId: any) => {
+    const onClickUpdateCard = (cardId: string) => {
         dispatch(updateCardTC({
             card: {
                 _id: cardId,

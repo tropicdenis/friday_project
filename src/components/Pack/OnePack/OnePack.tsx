@@ -1,7 +1,7 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { getCardsTC } from '../../../Redux/cardsReducer';
+import {useDispatch} from 'react-redux';
+import {NavLink} from 'react-router-dom';
+import {getCardsTC} from '../../../Redux/cardsReducer';
 import style from '../OnePack/OnePack.module.css';
 
 type OnePackType = {
@@ -15,7 +15,6 @@ type OnePackType = {
 
 export const OnePack = (props: OnePackType) => {
 	const dispatch = useDispatch();
-
 
 	const onClickDeletePackOnButton = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		props.onClickDeletePack(props.packId)

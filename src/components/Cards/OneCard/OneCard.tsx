@@ -1,6 +1,5 @@
 import React from "react";
 
-
 type OneCardType = {
 	cardId: string
 	question: string
@@ -8,7 +7,6 @@ type OneCardType = {
 	deleteCard: (cardId: string) => void
 	updateCard: (card: any) => void
 }
-
 
 export const OneCard = (props: OneCardType) => {
 
@@ -18,8 +16,6 @@ export const OneCard = (props: OneCardType) => {
 	const updateOneCard = () => {
 		props.updateCard(props.cardId)
 	}
-
-
 
 	return (<div>
 		<span>{props.created}{props.question}</span>

@@ -73,6 +73,7 @@ export const logoutTC = () => (dispatch: Dispatch) => {
         })
         .catch((error: ErrorDataType) => {
             dispatch(setResponseErrorAC(error.response.data.error))
+            dispatch(setAppStatusAC('succeeded'))
         })
 }
 

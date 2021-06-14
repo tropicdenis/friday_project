@@ -4,7 +4,8 @@ import { setAppStatusAC } from './app_reducer';
 import { AppThunk } from './redux_store';
 
 export enum ACTION_TYPES {
-	GET_PACKS_PACK = 'GET_PACKS_PACK'
+	GET_PACKS_PACK = 'GET_PACKS_PACK',
+	SEARCH_NAME = "SEARCH_NAME"
 }
 
 const initialState = {
@@ -21,7 +22,7 @@ const initialState = {
 	cardPacksTotalCount: 0,
 	maxCardsCount: 0,
 	minCardsCount: 0,
-	page: 0,
+	page: 1,
 	pageCount: 0
 }
 
@@ -34,16 +35,22 @@ export const packsReducer = (state: initialCardsStateType = initialState, action
 			return {
 				...state, ...action.data, cardPacks: action.data.cardPacks.map(pack => ({ ...pack }))
 			}
+		case ACTION_TYPES.SEARCH_NAME: {
+			return {...state, cardPacks: state.cardPacks.filter(card => card.name === action.name)}
+		}
+
 		default:
 			return state
 	}
 }
 //Action
-export const getAllCardsPackAC = (data: initialCardsStateType) => ({ type: ACTION_TYPES.GET_PACKS_PACK, data })
+export const getAllCardsPackAC = (data: initialCardsStateType) => ({ type: ACTION_TYPES.GET_PACKS_PACK, data }as const)
+export const setSearchNameAC = (name: string) => ({type: ACTION_TYPES.SEARCH_NAME, name}as const)
+
 //Thunk
-export const getCardsPackTC = () => (dispatch: Dispatch) => {
+export const getCardsPackTC = (pageNumber: number) => (dispatch: Dispatch) => {
 	dispatch(setAppStatusAC('loading'))
-	packsAPI.getCardsPack().then(res => {
+	packsAPI.getCardsPack(pageNumber, 10).then(res => {
 		dispatch(getAllCardsPackAC(res.data))
 		dispatch(setAppStatusAC('succeeded'))
 	}).catch(err => {
@@ -51,33 +58,35 @@ export const getCardsPackTC = () => (dispatch: Dispatch) => {
 	})
 }
 
-export const createCardsPackTC = (cardsPack: CardsPackCreateType): AppThunk => dispatch => {
+export const createCardsPackTC = (cardsPack: CardsPackCreateType, page: number): AppThunk => dispatch => {
 	dispatch(setAppStatusAC('loading'))
 	packsAPI.createPack(cardsPack).then(res => {
-		dispatch(getCardsPackTC())
+		dispatch(getCardsPackTC(page))
 		dispatch(setAppStatusAC('succeeded'))
 	}).catch(err => {
 		dispatch(setAppStatusAC('succeeded'))
 	})
 }
 
-export const deleteCardsPackTC = (packsId: string): AppThunk => dispatch => {
+export const deleteCardsPackTC = (packsId: string, page: number): AppThunk => dispatch => {
 	dispatch(setAppStatusAC('loading'))
 	packsAPI.deletePack(packsId).then(res => {
-		dispatch(getCardsPackTC())
+		dispatch(getCardsPackTC(page))
 		dispatch(setAppStatusAC('succeeded'))
 	}).catch(err => {
 		dispatch(setAppStatusAC('succeeded'))
 	})
 }
-export const updateCardsPackTC = (cardsPack: CardsPackUpdateType): AppThunk => dispatch => {
+export const updateCardsPackTC = (cardsPack: CardsPackUpdateType, page: number): AppThunk => dispatch => {
 	dispatch(setAppStatusAC('loading'))
 	packsAPI.updatePack(cardsPack).then(res => {
-		dispatch(getCardsPackTC())
+		dispatch(getCardsPackTC(page))
 		dispatch(setAppStatusAC('succeeded'))
 	}).catch(err => {
 		dispatch(setAppStatusAC('succeeded'))
 	})
 }
 
-export type CardsPackActionType = ReturnType<typeof getAllCardsPackAC>
+export type CardsPackActionType =
+	ReturnType<typeof getAllCardsPackAC>
+	| ReturnType<typeof setSearchNameAC>

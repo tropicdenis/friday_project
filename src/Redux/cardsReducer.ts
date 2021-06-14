@@ -1,7 +1,6 @@
-import { Dispatch } from "redux";
-import { setAppStatusAC } from "./app_reducer";
-import { cardsAPI, CardType, UpdateCardType } from "../api/cardsApi";
-import { AppThunk } from "./redux_store";
+import {setAppStatusAC} from "./app_reducer";
+import {cardsAPI, CardType, UpdateCardType} from "../api/cardsApi";
+import {AppThunk} from "./redux_store";
 
 export enum ACTION_TYPES {
     GET_CARDS = "GET_CARDS",
@@ -28,7 +27,6 @@ let initialState = {
     pageCount: 0,
     packUserId: ""
 }
-
 
 export type InitialStateCards = typeof initialState
 export type CardsActionType = ReturnType<typeof getCardsAC>

@@ -12,7 +12,7 @@ import style from '../Pack/Packs.module.css';
 import {Search} from "../Search/Search";
 import {Range} from "../Range/Range";
 import {OnePack} from './OnePack/OnePack';
-import UsePagination from "../Paginator/Paginator";
+import {BasicPagination} from "../Paginator/Paginator";
 
 const Packs = () => {
     const dispatch = useDispatch();
@@ -71,7 +71,6 @@ const Packs = () => {
                 <Range />
                 <Search />
             </div>
-            <div><UsePagination cardPacksTotalCount={cardPacksTotalCount} cardPage={cardPage} onChange={changePagePaginator}/></div>
             <div>PacksPage</div>
             <div className={style.flexCardsTitle}>
                 <div>name</div>
@@ -83,7 +82,7 @@ const Packs = () => {
                 </div>
             </div>
             <div>{allPacks}</div>
-
+            <BasicPagination page={cardPage} cardPacksTotalCount={cardPacksTotalCount} onChange={changePagePaginator} />
         </div>
     )
 }

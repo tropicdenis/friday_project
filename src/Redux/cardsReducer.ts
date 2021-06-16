@@ -3,8 +3,7 @@ import {cardsAPI, CardType, UpdateCardType} from "../api/cardsApi";
 import {AppThunk} from "./redux_store";
 
 export enum ACTION_TYPES {
-    GET_CARDS = "GET_CARDS",
-    CREATE_CARD = "CREATE_CARD"
+    GET_CARDS = "GET_CARDS"
 }
 let initialState = {
     cards: [
@@ -35,7 +34,6 @@ export type CardsActionType = ReturnType<typeof getCardsAC>
 export const cardsReducer = (state: InitialStateCards = initialState, action: CardsActionType): InitialStateCards => {
     switch (action.type) {
         case ACTION_TYPES.GET_CARDS:
-
             return { ...state, ...action.data, cards: action.data.cards.map(card => ({ ...card })) }
         default:
             return state

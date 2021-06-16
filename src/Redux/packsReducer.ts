@@ -32,13 +32,12 @@ export type initialCardsStateType = typeof initialState;
 export const packsReducer = (state: initialCardsStateType = initialState, action: CardsPackActionType): initialCardsStateType => {
 	switch (action.type) {
 		case ACTION_TYPES.GET_PACKS_PACK:
-			return {
-				...state, ...action.data, cardPacks: action.data.cardPacks.map(pack => ({ ...pack }))
-			}
+			return action.data
+				/*...state, ...action.data, cardPacks: action.data.cardPacks.map(pack => ({ ...pack }))*/
+
 		case ACTION_TYPES.SEARCH_NAME: {
 			return {...state, cardPacks: state.cardPacks.filter(card => card.name === action.name)}
 		}
-
 		default:
 			return state
 	}

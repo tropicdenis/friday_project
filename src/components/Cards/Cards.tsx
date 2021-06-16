@@ -12,12 +12,11 @@ export const Cards = () => {
     const dispatch = useDispatch()
     const allCards = useSelector<AppStateType, InitialStateCards>(state => state.cards)
 
-    const { cardsPack_id } = useParams<{ cardsPack_id: string }>()
+    const {cardsPack_id} = useParams<{ cardsPack_id: string }>()
 
     useEffect(() => {
         dispatch(getCardsTC(cardsPack_id))
     }, [dispatch, cardsPack_id])
-
 
     const onClickCreateCard = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         dispatch(createCardTC({
@@ -42,8 +41,8 @@ export const Cards = () => {
     return (
         <div className={style.main}>
             <div className={style.components}>
-                <Range />
-                <Search />
+                <Range/>
+                <Search/>
             </div>
             <div className={style.table}>Table Cards
                 <div className={style.borderTable}>
@@ -59,11 +58,11 @@ export const Cards = () => {
             <div className={style.bodyTable}>
                 <div className={style.borderTable}>
                     {allCards.cards.map(c => (<OneCard
-                        cardId={c._id}
-                        question={c.question}
-                        created={c.created}
-                        deleteCard={onClickDeleteCard}
-                        updateCard={onClickUpdateCard} />
+                            cardId={c._id}
+                            question={c.question}
+                            created={c.created}
+                            deleteCard={onClickDeleteCard}
+                            updateCard={onClickUpdateCard}/>
                     ))}
                 </div>
             </div>

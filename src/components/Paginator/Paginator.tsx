@@ -1,55 +1,33 @@
 import React from 'react';
-import {usePagination} from '@material-ui/lab/Pagination';
 import {makeStyles} from '@material-ui/core/styles';
+import {Pagination} from "@material-ui/lab";
 
-const useStyles = makeStyles({
-    ul: {
-        listStyle: 'none',
-        padding: 0,
-        margin: 0,
-        display: 'flex',
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& > *': {
+            marginTop: theme.spacing(2),
+        },
     },
-});
-type PropsPaginator = {
+}));
+
+type BasicPaginationPropsType = {
     cardPacksTotalCount: number
-    cardPage: number
-    onChange: (event: React.ChangeEvent<unknown>, page: number) => void;
+    page: number
+    onChange?: (event: React.ChangeEvent<unknown>, page: number) => void;
 }
 
-export default function UsePagination(props: PropsPaginator) {
+export function BasicPagination(props: BasicPaginationPropsType) {
     const classes = useStyles();
-    const { items } = usePagination({
-        count: Math.ceil(props.cardPacksTotalCount/10),
-        page: props.cardPage,
-        onChange: props.onChange
-    });
+    const count = Math.ceil(props.cardPacksTotalCount/10)
 
     return (
-        <nav>
-            <ul className={classes.ul}>
-                {items.map(({ page, type, selected, ...item }, index) => {
-                    let children = null;
-
-                    if (type === 'start-ellipsis' || type === 'end-ellipsis') {
-                        children = '…';
-                    } else if (type === 'page') {
-                        children = (
-                            <button type="button" style={{ fontWeight: selected ? 'bold' : undefined }} {...item}>
-                                {page}
-                            </button>
-                        );
-                    } else {
-                        children = (
-                            <button type="button" {...item}>
-                                {type}
-                            </button>
-                        );
-                    }
-
-                    return <li key={index}>{children}</li>;
-                })}
-            </ul>
-        </nav>
+        <div className={classes.root}>
+            <Pagination count={count}
+                        color="secondary"
+                        page={props.page}
+                        onChange={props.onChange}
+            />
+        </div>
     );
 }
 
